@@ -1,5 +1,6 @@
 <template>
   <view class="bottom-nav">
+    <view class="nav-slider" :style="{ transform: 'translateX(' + current * 100 + '%)' }"></view>
     <view class="nav-item" :class="{ active: current === 0 }" @click="switchTab('home')" @touchstart="onTouchStart(0)" @touchend="onTouchEnd(0)">
       <view class="nav-icon-wrapper" :class="{ pressed: pressedIndex === 0 }">
         <view class="nav-icon icon" :class="current === 0 ? 'icon--fluent--home-48-filled' : 'icon--fluent--home-32-regular'"></view>
@@ -64,16 +65,32 @@ export default {
   box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.6),
     0 0 16rpx rgba(255, 255, 255, 0.08);
   z-index: 100;
-  padding: 0 20rpx;
+  padding: 0 10rpx;
+}
+
+.nav-slider {
+  position: absolute;
+  left: 10rpx;
+  top: 50%;
+  transform: translateX(0);
+  width: calc(100% / 3 - 20rpx / 3);
+  height: 96rpx;
+  margin-top: -48rpx;
+  background-color: rgba($accent-blue, 0.15);
+  border-radius: 48rpx;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
 }
 
 .nav-item {
-  width: 96rpx;
+  flex: 1;
   height: 96rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 48rpx;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-icon-wrapper {
@@ -83,7 +100,7 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .nav-icon-wrapper.pressed {
@@ -94,10 +111,6 @@ export default {
   width: 48rpx;
   height: 48rpx;
   transition: transform 0.2s ease;
-}
-
-.nav-item.active .nav-icon-wrapper {
-  background-color: rgba($accent-blue, 0.15);
 }
 
 .nav-item.active .nav-icon {
