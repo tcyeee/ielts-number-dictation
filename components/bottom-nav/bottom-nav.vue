@@ -1,34 +1,16 @@
 <template>
   <view class="bottom-nav">
-    <view
-      class="nav-item"
-      :class="{ active: current === 0 }"
-      @click="switchTab('home')"
-      @touchstart="onTouchStart(0)"
-      @touchend="onTouchEnd(0)"
-    >
+    <view class="nav-item" :class="{ active: current === 0 }" @click="switchTab('home')" @touchstart="onTouchStart(0)" @touchend="onTouchEnd(0)">
       <view class="nav-icon-wrapper" :class="{ pressed: pressedIndex === 0 }">
         <text class="nav-icon">🏠</text>
       </view>
     </view>
-    <view
-      class="nav-item"
-      :class="{ active: current === 1 }"
-      @click="switchTab('history')"
-      @touchstart="onTouchStart(1)"
-      @touchend="onTouchEnd(1)"
-    >
+    <view class="nav-item" :class="{ active: current === 1 }" @click="switchTab('history')" @touchstart="onTouchStart(1)" @touchend="onTouchEnd(1)">
       <view class="nav-icon-wrapper" :class="{ pressed: pressedIndex === 1 }">
         <text class="nav-icon">📊</text>
       </view>
     </view>
-    <view
-      class="nav-item"
-      :class="{ active: current === 2 }"
-      @click="switchTab('profile')"
-      @touchstart="onTouchStart(2)"
-      @touchend="onTouchEnd(2)"
-    >
+    <view class="nav-item" :class="{ active: current === 2 }" @click="switchTab('profile')" @touchstart="onTouchStart(2)" @touchend="onTouchEnd(2)">
       <view class="nav-icon-wrapper" :class="{ pressed: pressedIndex === 2 }">
         <text class="nav-icon">👤</text>
       </view>
@@ -82,8 +64,8 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.4),
-    0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.6),
+    0 0 16rpx rgba(255, 255, 255, 0.08);
   z-index: 100;
   padding: 0 20rpx;
 }
