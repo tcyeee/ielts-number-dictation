@@ -2,17 +2,17 @@
   <view class="bottom-nav">
     <view class="nav-item" :class="{ active: current === 0 }" @click="switchTab('home')" @touchstart="onTouchStart(0)" @touchend="onTouchEnd(0)">
       <view class="nav-icon-wrapper" :class="{ pressed: pressedIndex === 0 }">
-        <text class="nav-icon">🏠</text>
+        <view class="nav-icon icon" :class="current === 0 ? 'icon--fluent--home-48-filled' : 'icon--fluent--home-32-regular'"></view>
       </view>
     </view>
     <view class="nav-item" :class="{ active: current === 1 }" @click="switchTab('history')" @touchstart="onTouchStart(1)" @touchend="onTouchEnd(1)">
       <view class="nav-icon-wrapper" :class="{ pressed: pressedIndex === 1 }">
-        <text class="nav-icon">📊</text>
+        <view class="nav-icon icon" :class="current === 1 ? 'icon--mdi--chart-box' : 'icon--mdi--chart-box-outline'"></view>
       </view>
     </view>
     <view class="nav-item" :class="{ active: current === 2 }" @click="switchTab('profile')" @touchstart="onTouchStart(2)" @touchend="onTouchEnd(2)">
       <view class="nav-icon-wrapper" :class="{ pressed: pressedIndex === 2 }">
-        <text class="nav-icon">👤</text>
+        <view class="nav-icon icon" :class="current === 2 ? 'icon--mingcute--user-2-fill' : 'icon--mingcute--user-2-line'"></view>
       </view>
     </view>
   </view>
@@ -94,7 +94,8 @@ export default {
 }
 
 .nav-icon {
-  font-size: 44rpx;
+  width: 48rpx;
+  height: 48rpx;
   transition: transform 0.2s ease;
 }
 
