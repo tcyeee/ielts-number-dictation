@@ -1,5 +1,7 @@
 <template>
   <view class="container">
+    <safe-area size="s" />
+
     <!-- Header -->
     <view class="header">
       <text class="page-title">Training History</text>
@@ -95,7 +97,11 @@
 </template>
 
 <script>
+import SafeArea from "@/components/safe-area/safe-area-top.vue";
 export default {
+  components: {
+    SafeArea,
+  },
   data() {
     return {
       days: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],

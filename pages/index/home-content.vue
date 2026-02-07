@@ -1,5 +1,5 @@
 <template>
-  <safe-area size="m" />
+  <safe-area size="s" />
   <view class="container">
     <!-- Header Section -->
     <view class="header">
@@ -9,9 +9,6 @@
           <text class="app-name">IELTS Dictation</text>
           <text class="greeting">Keep it up, Alex!</text>
         </view>
-      </view>
-      <view class="notification-btn">
-        <text class="icon icon--fontisto--bell icon-size-24"></text>
       </view>
     </view>
 

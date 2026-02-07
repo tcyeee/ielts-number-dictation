@@ -1,11 +1,6 @@
 <template>
   <view class="page-root">
-    <swiper
-      class="tab-swiper"
-      :current="currentTab"
-      :duration="250"
-      @change="onSwiperChange"
-    >
+    <swiper class="tab-swiper" :current="currentTab" :duration="250" @change="onSwiperChange">
       <swiper-item>
         <scroll-view scroll-y class="tab-scroll">
           <home-content />
