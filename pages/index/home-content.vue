@@ -17,14 +17,14 @@
       <text class="section-title">Your Progress</text>
       <view class="progress-cards">
         <!-- Accuracy Card -->
-        <view class="card progress-card" @click="toHistory">
+        <view class="card progress-card" @click="toHistory" hover-class="card-hover">
           <circular-progress :percentage="85" color="#2b86ff" label="85%" />
           <text class="card-label">Accuracy</text>
           <text class="card-subtext success">+5% today</text>
         </view>
 
         <!-- Daily Goal Card -->
-        <view class="card progress-card" @click="toHistory">
+        <view class="card progress-card" @click="toHistory" hover-class="card-hover">
           <circular-progress :percentage="60" color="#ff6b35" label="12/20" />
           <text class="card-label">Daily Goal</text>
           <text class="card-subtext">8 remaining</text>
@@ -69,6 +69,7 @@
 
   <view class="copyright">
     <text class="copyright-text">© 2026 IELTS Dictation. All rights reserved.</text>
+    <text class="copyright-text" style="font-size: 20rpx;">本应用为第三方备考工具，与 IELTS 官方无任何隶属或合作关系</text>
   </view>
 
   <!-- Safe Area Bottom -->
@@ -201,6 +202,12 @@ export default {
   background-color: $card-bg;
   border-radius: 30rpx;
   padding: 30rpx;
+  transition: all 0.2s ease;
+}
+
+.card-hover {
+  transform: scale(0.98);
+  opacity: 0.9;
 }
 
 /* Progress Cards */
@@ -233,7 +240,6 @@ export default {
 .success {
   color: $accent-green;
 }
-
 /* Modules Grid */
 .modules-grid {
   display: grid;
@@ -293,6 +299,8 @@ export default {
   .copyright-text {
     font-size: 24rpx;
     color: $text-sub;
+    display: block;
+    margin-bottom: 10rpx;
   }
 }
 
