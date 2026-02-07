@@ -91,8 +91,8 @@
       <!-- Bottom Navigation -->
       <bottom-nav />
 
-      <!-- Spacer for bottom nav -->
-      <view class="bottom-spacer"></view>
+      <!-- Safe Area Bottom -->
+      <safe-area-bottom />
 
     </view>
   </view>
@@ -101,11 +101,13 @@
 <script>
 import SafeArea from "@/components/safe-area/safe-area.vue";
 import BottomNav from "@/components/bottom-nav/bottom-nav.vue";
+import SafeAreaBottom from "@/components/safe-area/safe-area-bottom.vue";
 
 export default {
   components: {
     SafeArea,
     BottomNav,
+    SafeAreaBottom,
   },
   data() {
     return {
@@ -418,9 +420,5 @@ page {
 .locked {
   background-color: $card-bg;
   color: $text-sub;
-}
-
-.bottom-spacer {
-  height: 160rpx;
 }
 </style>
