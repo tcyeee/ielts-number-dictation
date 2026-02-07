@@ -114,7 +114,6 @@ export default {
         tag: "ALL CATEGORIES",
         sub: "Phones, Dates, Prices & Addresses",
         progress: 62,
-        icon: "🔀",
       },
       modules: [
         {
