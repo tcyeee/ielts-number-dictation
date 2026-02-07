@@ -17,14 +17,14 @@
       <text class="section-title">Your Progress</text>
       <view class="progress-cards">
         <!-- Accuracy Card -->
-        <view class="card progress-card">
+        <view class="card progress-card" @click="toHistory">
           <circular-progress :percentage="85" color="#2b86ff" label="85%" />
           <text class="card-label">Accuracy</text>
           <text class="card-subtext success">+5% today</text>
         </view>
 
         <!-- Daily Goal Card -->
-        <view class="card progress-card">
+        <view class="card progress-card" @click="toHistory">
           <circular-progress :percentage="60" color="#ff6b35" label="12/20" />
           <text class="card-label">Daily Goal</text>
           <text class="card-subtext">8 remaining</text>
@@ -79,6 +79,7 @@
 import SafeArea from "@/components/safe-area/safe-area-top.vue";
 import SafeAreaBottom from "@/components/safe-area/safe-area-bottom.vue";
 import CircularProgress from "@/components/circular-progress/circular-progress.vue";
+import { navigateTo } from "@/utils/router";
 
 export default {
   components: {
@@ -119,9 +120,10 @@ export default {
   onLoad() {},
   methods: {
     toCategory() {
-      uni.navigateTo({
-        url: "/pages/category",
-      });
+      navigateTo("category");
+    },
+    toHistory() {
+      navigateTo("history");
     },
   },
 };
@@ -286,6 +288,7 @@ export default {
 .copyright {
   text-align: center;
   padding: 40rpx 0;
+  margin-bottom: 150rpx;
 
   .copyright-text {
     font-size: 24rpx;
