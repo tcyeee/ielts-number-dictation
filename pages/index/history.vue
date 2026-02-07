@@ -94,30 +94,6 @@
         </view>
       </view>
     </view>
-
-    <!-- Spacer for bottom nav -->
-    <view class="bottom-spacer"></view>
-
-    <!-- Bottom Navigation -->
-    <view class="bottom-nav">
-      <view class="nav-item" @click="navigateTo('/pages/index')">
-        <text class="nav-icon">🏠</text>
-        <text class="nav-label">Home</text>
-      </view>
-      <view class="nav-item" @click="navigateTo('/pages/category')">
-        <text class="nav-icon">▶️</text>
-        <text class="nav-label">Train</text>
-      </view>
-      <view class="nav-item active">
-        <text class="nav-icon">🕒</text>
-        <text class="nav-label">History</text>
-      </view>
-      <view class="nav-item">
-        <text class="nav-icon">👤</text>
-        <text class="nav-label">Profile</text>
-      </view>
-    </view>
-
   </view>
 </template>
 

@@ -1,11 +1,11 @@
 declare const uni: any
 
 export const ROUTES = {
-  home: '/pages/index',
+  home: '/pages/index/home',
   category: '/pages/category',
   dictation: '/pages/dictation',
-  history: '/pages/history',
-  profile: '/pages/profile',
+  history: '/pages/index/history',
+  profile: '/pages/index/profile',
   result: '/pages/result',
 } as const
 
