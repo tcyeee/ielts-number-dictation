@@ -30,7 +30,7 @@
           <text class="chart-big-value">88%</text>
         </view>
         <view class="date-badge">
-          <text>OCT 18 - 24</text>
+          <text class="date-text">OCT 18 - 24</text>
         </view>
       </view>
 
@@ -52,7 +52,7 @@
 
         <!-- X-Axis Labels -->
         <view class="chart-labels">
-          <text v-for="(day, index) in days" :key="index">{{ day }}</text>
+          <text class="label-text" v-for="(day, index) in days" :key="index">{{ day }}</text>
         </view>
       </view>
     </view>
@@ -60,7 +60,7 @@
     <!-- Tabs -->
     <view class="tabs">
       <view class="tab-item" :class="{ active: currentTab === index }" v-for="(tab, index) in tabs" :key="index" @click="currentTab = index">
-        <text>{{ tab }}</text>
+        <text class="tab-text">{{ tab }}</text>
         <view class="active-indicator" v-if="currentTab === index"></view>
       </view>
     </view>
@@ -76,7 +76,7 @@
         <view class="card session-card" v-for="(session, index) in filteredSessions" :key="index">
           <view class="session-left">
             <view class="session-icon">
-              <text>{{ session.icon }}</text>
+              <text class="icon-text">{{ session.icon }}</text>
             </view>
             <view class="session-info">
               <text class="session-title">{{ session.title }}</text>
@@ -91,7 +91,6 @@
       </view>
     </view>
   </view>
-
 
 </template>
 
@@ -257,7 +256,7 @@ export default {
       padding: 8rpx 16rpx;
       border-radius: 12rpx;
 
-      text {
+      .date-text {
         color: $accent-blue;
         font-size: 24rpx;
         font-weight: bold;
@@ -279,7 +278,7 @@ export default {
       margin-top: 20rpx;
       padding: 0 10rpx;
 
-      text {
+      .label-text {
         color: $text-sub;
         font-size: 20rpx;
       }
@@ -299,14 +298,14 @@ export default {
     position: relative;
     white-space: nowrap;
 
-    text {
+    .tab-text {
       color: $text-sub;
       font-size: 28rpx;
       font-weight: 500;
     }
 
     &.active {
-      text {
+      .tab-text {
         color: $accent-blue;
         font-weight: bold;
       }
@@ -366,7 +365,7 @@ export default {
       justify-content: center;
       margin-right: 24rpx;
 
-      text {
+      .icon-text {
         font-size: 32rpx;
         color: $accent-blue;
       }
@@ -418,5 +417,4 @@ export default {
     }
   }
 }
-
 </style>

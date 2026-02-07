@@ -71,7 +71,7 @@
   <button class="contact-link" open-type="contact">联系客服</button>
 
   <view class="copyright">
-    <text>© 2026 IELTS Dictation. All rights reserved.</text>
+    <text class="copyright-text">© 2026 IELTS Dictation. All rights reserved.</text>
   </view>
 
   <!-- Safe Area Bottom -->
@@ -290,7 +290,7 @@ export default {
   text-align: center;
   padding: 40rpx 0;
 
-  text {
+  .copyright-text {
     font-size: 24rpx;
     color: $text-sub;
   }
