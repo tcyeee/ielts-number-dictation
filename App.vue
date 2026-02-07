@@ -81,15 +81,6 @@ page {
 }
 
 /* prettier-ignore */
-.round-{
-  &sm { border-radius: 8rpx; }
-  &md { border-radius: 12rpx; }
-  &lg { border-radius: 16rpx; }
-  &xl { border-radius: 24rpx; }
-  &pill { border-radius: 999rpx; }
-}
-
-/* prettier-ignore */
 .border- {
   &-primary {
     border-color: $uni-border-color;
@@ -112,6 +103,8 @@ page {
   &sm { border-radius: $uni-border-radius-sm; }
   &md { border-radius: $uni-border-radius-base; }
   &lg { border-radius: $uni-border-radius-lg; }
+  &xl { border-radius: 24rpx; }
+  &pill { border-radius: 999rpx; }
   &circle { border-radius: $uni-border-radius-circle; }
 }
 
