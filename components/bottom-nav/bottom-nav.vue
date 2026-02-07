@@ -1,12 +1,12 @@
 <template>
   <view class="bottom-nav">
-    <view class="nav-item active">
+    <view class="nav-item" :class="{ active: current === 0 }" @click="navTo('/pages/index')">
       <text class="nav-icon">🏠</text>
     </view>
-    <view class="nav-item">
+    <view class="nav-item" :class="{ active: current === 1 }" @click="navTo('/pages/history')">
       <text class="nav-icon">📊</text>
     </view>
-    <view class="nav-item">
+    <view class="nav-item" :class="{ active: current === 2 }" @click="navTo('/pages/profile')">
       <text class="nav-icon">👤</text>
     </view>
   </view>
@@ -15,8 +15,18 @@
 <script>
 export default {
   name: "bottom-nav",
-  data() {
-    return {};
+  props: {
+    current: {
+      type: Number,
+      default: 0,
+    },
+  },
+  methods: {
+    navTo(url) {
+      uni.navigateTo({
+        url,
+      });
+    },
   },
 };
 </script>

@@ -4,6 +4,7 @@
 		{"path": "pages/category","style": { "navigationStyle": "custom", "navigationBarTitleText": "分类" }},
 		{"path": "pages/dictation","style": { "navigationStyle": "custom", "navigationBarTitleText": "听写" }},
 		{"path": "pages/history","style": { "navigationStyle": "custom", "navigationBarTitleText": "历史" }},
+		{"path": "pages/profile","style": { "navigationStyle": "custom", "navigationBarTitleText": "个人中心" }},
 		{"path": "pages/result","style": { "navigationStyle": "custom", "navigationBarTitleText": "结果" }}
 	],
 	"globalStyle": {
