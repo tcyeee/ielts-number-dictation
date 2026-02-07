@@ -76,21 +76,16 @@
 
   <!-- Safe Area Bottom -->
   <safe-area-bottom />
-
-  <!-- Bottom Navigation -->
-  <bottom-nav />
 </template>
 
 <script>
 import SafeArea from "@/components/safe-area/safe-area-top.vue";
-import BottomNav from "@/components/bottom-nav/bottom-nav.vue";
 import SafeAreaBottom from "@/components/safe-area/safe-area-bottom.vue";
 import CircularProgress from "@/components/circular-progress/circular-progress.vue";
 
 export default {
   components: {
     SafeArea,
-    BottomNav,
     SafeAreaBottom,
     CircularProgress,
   },
@@ -135,13 +130,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
-page {
-  background-color: $bg-color;
-  min-height: 100vh;
-  padding-bottom: 120rpx;
-}
-
+<style lang="scss" scoped>
 .container {
   padding: 40rpx;
   padding-bottom: 0;

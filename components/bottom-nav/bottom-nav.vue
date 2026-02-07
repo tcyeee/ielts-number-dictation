@@ -19,10 +19,6 @@
 </template>
 
 <script>
-import { redirectTo } from "@/utils/router.ts";
-
-const TAB_ROUTES = ["home", "history", "profile"];
-
 export default {
   name: "bottom-nav",
   props: {
@@ -38,9 +34,10 @@ export default {
   },
   methods: {
     switchTab(route) {
+      const TAB_ROUTES = ["home", "history", "profile"];
       const idx = TAB_ROUTES.indexOf(route);
       if (idx === this.current) return;
-      redirectTo(route);
+      this.$emit("change", idx);
     },
     onTouchStart(index) {
       this.pressedIndex = index;

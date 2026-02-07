@@ -2,11 +2,7 @@
   <view class="container">
     <!-- Header -->
     <view class="header">
-      <view class="back-btn" @click="goBack">
-        <text class="icon">❮</text>
-      </view>
       <text class="page-title">Training History</text>
-      <view class="placeholder"></view> <!-- To balance the header -->
     </view>
 
     <!-- Stats Cards -->
@@ -95,6 +91,8 @@
       </view>
     </view>
   </view>
+
+
 </template>
 
 <script>
@@ -148,9 +146,6 @@ export default {
     },
   },
   methods: {
-    goBack() {
-      uni.navigateBack();
-    },
     getScoreClass(percent) {
       if (percent >= 90) return "success";
       if (percent >= 70) return "warning";
@@ -165,59 +160,20 @@ export default {
 };
 </script>
 
-<style lang="scss">
-// Variables (Matching index.vue)
-$bg-color: #111823;
-$card-bg: #1a2332;
-$text-main: #ffffff;
-$text-sub: #8b9bb4;
-$accent-blue: #2b86ff;
-$accent-orange: #ff6b35;
-$accent-green: #00d26a;
-
-page {
-  background-color: $bg-color;
-  min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
-
+<style lang="scss" scoped>
 .container {
   padding: 40rpx;
-  padding-bottom: 120rpx; // Space for bottom nav
 }
 
 /* Header */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-top: 20rpx;
   margin-bottom: 40rpx;
-
-  .back-btn {
-    width: 60rpx;
-    height: 60rpx;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-
-    .icon {
-      color: $accent-blue;
-      font-size: 32rpx;
-    }
-  }
 
   .page-title {
     color: $text-main;
     font-size: 36rpx;
     font-weight: bold;
-  }
-
-  .placeholder {
-    width: 60rpx;
   }
 }
 
@@ -463,48 +419,4 @@ page {
   }
 }
 
-/* Bottom Navigation */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 120rpx;
-  background-color: #1a2332;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-bottom: env(safe-area-inset-bottom);
-  border-top: 1rpx solid rgba(255, 255, 255, 0.05);
-  z-index: 100;
-
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    height: 100%;
-
-    .nav-icon {
-      font-size: 40rpx;
-      margin-bottom: 6rpx;
-      opacity: 0.5;
-    }
-
-    .nav-label {
-      font-size: 20rpx;
-      color: $text-sub;
-    }
-
-    &.active {
-      .nav-icon {
-        opacity: 1;
-      }
-      .nav-label {
-        color: $accent-blue;
-      }
-    }
-  }
-}
 </style>

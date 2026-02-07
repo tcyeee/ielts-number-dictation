@@ -1,11 +1,9 @@
 declare const uni: any
 
 export const ROUTES = {
-  home: '/pages/index/home',
+  index: '/pages/index/index',
   category: '/pages/category',
   dictation: '/pages/dictation',
-  history: '/pages/index/history',
-  profile: '/pages/index/profile',
   result: '/pages/result',
 } as const
 
@@ -33,12 +31,12 @@ export function redirectTo(route: RouteName, params?: Record<string, string | nu
 export function navigateBack(): void {
   uni.navigateBack({
     fail: () => {
-      uni.redirectTo({ url: ROUTES.home })
+      uni.reLaunch({ url: ROUTES.index })
     },
   })
 }
 
 /** 回首页 */
 export function goHome(): void {
-  uni.redirectTo({ url: ROUTES.home })
+  uni.reLaunch({ url: ROUTES.index })
 }

@@ -164,7 +164,7 @@ export default {
       uni.redirectTo({ url: "/pages/dictation" });
     },
     goHome() {
-      uni.reLaunch({ url: "/pages/index" });
+      uni.reLaunch({ url: "/pages/index/index" });
     },
   },
 };

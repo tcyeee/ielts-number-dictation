@@ -80,17 +80,14 @@
       </view>
     </view>
 
-    <bottom-nav :current="2" />
   </view>
 </template>
 
 <script>
-import BottomNav from "@/components/bottom-nav/bottom-nav.vue";
 import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
 
 export default {
   components: {
-    BottomNav,
     SafeAreaTop,
   },
   data() {
