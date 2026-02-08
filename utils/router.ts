@@ -2,7 +2,6 @@ declare const uni: any
 
 export const ROUTES = {
   index: '/pages/index/index',
-  category: '/pages/category',
   dictation: '/pages/dictation',
   result: '/pages/result',
   history: '/pages/history',

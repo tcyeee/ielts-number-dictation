@@ -138,7 +138,7 @@ export default {
   onLoad() {},
   methods: {
     toCategory() {
-      navigateTo("category");
+      navigateTo("dictation");
     },
   },
 };
