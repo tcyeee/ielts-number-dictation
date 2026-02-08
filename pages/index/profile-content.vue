@@ -80,26 +80,38 @@
 
       <!-- Support Group -->
       <view class="menu-group">
-        <!-- Help & Support -->
+        <!-- Privacy Policy -->
         <view class="menu-item">
           <view class="item-left">
             <view class="icon-box" style="background-color: rgba(255, 107, 53, 0.1)">
-              <!-- Help Icon -->
-              <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjZmY2YjM1IiBzdHJva2Utd2lkdGg9IjIiIC8+PHBhdGggZD0iTTkuMDkgOWEzIDMgMCAwMTUuODMgMWMwIDItMyAzLTMgMyIgc3Ryb2tlPSIjZmY2YjM1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz48cGF0aCBkPSJNMTIgMTdoLjAxIiBzdHJva2U9IiNmZjZiMzUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPjwvc3ZnPg==" style="width: 40rpx; height: 40rpx;"></image>
+              <!-- Shield Icon -->
+              <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMjJzOC00IDgtMTBWNWwtOC0zLTggM3Y3YzAgNiA4IDEwIDggMTB6IiBzdHJva2U9IiNmZjZiMzUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPjwvc3ZnPg==" style="width: 40rpx; height: 40rpx;"></image>
             </view>
-            <text class="item-text">Help & Support</text>
+            <text class="item-text">Privacy Policy</text>
           </view>
           <text class="arrow">›</text>
         </view>
 
-        <!-- About Us -->
+        <!-- Terms of Service -->
+        <view class="menu-item">
+          <view class="item-left">
+            <view class="icon-box" style="background-color: rgba(0, 191, 165, 0.1)">
+              <!-- File Text Icon -->
+              <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTQgMkg2YTIgMiAwIDAgMC0yIDJ2MTZhMiAyIDAgMCAwIDIgMmgxMmEyIDIgMCAwIDAgMi0yVjh6IiBzdHJva2U9IiMwMEJGQTUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPjxwYXRoIGQ9Ik0xNCAydjZoNiIgc3Ryb2tlPSIjMDBCRkE1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz48cGF0aCBkPSJNMTYgMTNIOCIgc3Ryb2tlPSIjMDBCRkE1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz48cGF0aCBkPSJNMTYgMTdIOCIgc3Ryb2tlPSIjMDBCRkE1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz48cGF0aCBkPSJNMTAgOUg4IiBzdHJva2U9IiMwMEJGQTUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPjwvc3ZnPg==" style="width: 40rpx; height: 40rpx;"></image>
+            </view>
+            <text class="item-text">Terms of Service</text>
+          </view>
+          <text class="arrow">›</text>
+        </view>
+
+        <!-- Contact Us -->
         <view class="menu-item">
           <view class="item-left">
             <view class="icon-box" style="background-color: rgba(139, 155, 180, 0.1)">
               <!-- Info Icon -->
               <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOGI5YmI0IiBzdHJva2Utd2lkdGg9IjIiIC8+PHBhdGggZD0iTTEyIDE2di00TTEyIDhoLjAxIiBzdHJva2U9IiM4YjliYjQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPjwvc3ZnPg==" style="width: 40rpx; height: 40rpx;"></image>
             </view>
-            <text class="item-text">About Us</text>
+            <text class="item-text">Contact Us</text>
           </view>
           <text class="arrow">›</text>
         </view>
