@@ -81,7 +81,7 @@
       <!-- Support Group -->
       <view class="menu-group">
         <!-- Privacy Policy -->
-        <view class="menu-item">
+        <view class="menu-item" @click="onPrivacyClick">
           <view class="item-left">
             <view class="icon-box" style="background-color: rgba(255, 107, 53, 0.1)">
               <!-- Shield Icon -->
@@ -93,7 +93,7 @@
         </view>
 
         <!-- Terms of Service -->
-        <view class="menu-item">
+        <view class="menu-item" @click="onTermsClick">
           <view class="item-left">
             <view class="icon-box" style="background-color: rgba(0, 191, 165, 0.1)">
               <!-- File Text Icon -->
@@ -123,6 +123,7 @@
 
 <script>
 import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
+import { navigateTo } from "@/utils/router";
 
 export default {
   components: {
@@ -150,6 +151,12 @@ export default {
     setLanguage(lang) {
       this.currentLanguage = lang;
       // Implement language switching logic here
+    },
+    onPrivacyClick() {
+      navigateTo("profilePrivacy");
+    },
+    onTermsClick() {
+      navigateTo("profileTerms");
     },
   },
 };
