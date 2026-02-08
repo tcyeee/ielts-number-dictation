@@ -1,7 +1,8 @@
 <template>
-  <view class="container">
-    <custom-header title="Terms of Service" />
+  <custom-header title="Terms of Service" />
+  <SafeAreaTop />
 
+  <view class="container">
     <scroll-view scroll-y class="content-scroll">
       <view class="content-wrapper">
         <!-- Section 1 -->
@@ -51,11 +52,10 @@
 
 <script>
 import CustomHeader from "@/components/nav/custom-header.vue";
+import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
 
 export default {
-  components: {
-    CustomHeader,
-  },
+  components: { CustomHeader, SafeAreaTop },
 };
 </script>
 

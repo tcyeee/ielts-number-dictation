@@ -105,7 +105,7 @@
         </view>
 
         <!-- Contact Us -->
-        <view class="menu-item">
+        <button class="menu-item contact-btn" open-type="contact">
           <view class="item-left">
             <view class="icon-box" style="background-color: rgba(139, 155, 180, 0.1)">
               <!-- Info Icon -->
@@ -114,10 +114,8 @@
             <text class="item-text">Contact Us</text>
           </view>
           <text class="arrow">›</text>
-        </view>
+        </button>
       </view>
-
-      <button class="contact-link" open-type="contact">联系客服</button>
 
       <view class="copyright">
         <text class="copyright-text">© 2026 IELTS Dictation. All rights reserved.</text>
@@ -324,13 +322,15 @@ export default {
   }
 }
 
-.contact-link {
+.contact-btn {
   background-color: transparent;
-  color: rgb(173, 173, 173);
-  font-size: 25rpx;
-  margin-top: 80rpx;
+  line-height: inherit;
+  border-radius: 0;
   border: none;
-  line-height: 1.5;
+  margin: 0;
+  text-align: left;
+  font-size: inherit;
+  color: inherit;
 
   &::after {
     border: none;
@@ -340,7 +340,6 @@ export default {
 .copyright {
   text-align: center;
   padding: 40rpx 0;
-  margin-bottom: 150rpx;
 
   .copyright-text {
     font-size: 24rpx;
