@@ -1,17 +1,7 @@
 <template>
+  <CustomHeader title="Session Setup" />
   <view class="container">
-    <!-- Header -->
-    <view class="header" :style="{ paddingTop: statusBarHeight + 'px' }">
-      <view class="nav-bar">
-        <view class="nav-btn" @click="goBack">
-          <text class="icon">&lt;</text>
-        </view>
-        <text class="title">Session Setup</text>
-        <view class="nav-btn">
-          <text class="icon">i</text>
-        </view>
-      </view>
-    </view>
+    <SafeAreaTop size="l" />
 
     <scroll-view scroll-y class="content">
       <!-- Categories -->
@@ -20,14 +10,9 @@
           <text class="section-title">Select Categories</text>
           <text class="section-subtitle">Choose types of numbers to practice</text>
         </view>
-        
+
         <view class="category-list">
-          <view 
-            v-for="(item, index) in categories" 
-            :key="index"
-            class="category-item"
-            @click="toggleCategory(index)"
-          >
+          <view v-for="(item, index) in categories" :key="index" class="category-item" @click="toggleCategory(index)">
             <view class="category-left">
               <view class="category-icon-box">
                 <text class="category-icon">{{ item.icon }}</text>
@@ -48,13 +33,7 @@
           <text class="section-subtitle">Control the dictation pace</text>
         </view>
         <view class="segment-control">
-          <view 
-            v-for="speed in speeds" 
-            :key="speed"
-            class="segment-item"
-            :class="{ 'segment-active': selectedSpeed === speed }"
-            @click="selectedSpeed = speed"
-          >
+          <view v-for="speed in speeds" :key="speed" class="segment-item" :class="{ 'segment-active': selectedSpeed === speed }" @click="selectedSpeed = speed">
             <text class="segment-text" :class="{ 'segment-text-active': selectedSpeed === speed }">{{ speed }}x</text>
           </view>
         </view>
@@ -67,18 +46,12 @@
           <text class="section-subtitle">How long should this session be?</text>
         </view>
         <view class="segment-control">
-          <view 
-            v-for="count in counts" 
-            :key="count"
-            class="segment-item"
-            :class="{ 'segment-active': selectedCount === count }"
-            @click="selectedCount = count"
-          >
+          <view v-for="count in counts" :key="count" class="segment-item" :class="{ 'segment-active': selectedCount === count }" @click="selectedCount = count">
             <text class="segment-text" :class="{ 'segment-text-active': selectedCount === count }">{{ count }}</text>
           </view>
         </view>
       </view>
-      
+
       <!-- Spacer for bottom button -->
       <view style="height: 100px;"></view>
     </scroll-view>
@@ -94,22 +67,25 @@
 </template>
 
 <script>
+import CustomHeader from "../components/nav/custom-header.vue";
+import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
 export default {
+  components: { CustomHeader, SafeAreaTop },
   data() {
     return {
       statusBarHeight: 20, // Default fallback
       categories: [
-        { id: 'whole', name: 'Whole Numbers', icon: '123', checked: true },
-        { id: 'date', name: 'Dates & Years', icon: '📅', checked: true },
-        { id: 'price', name: 'Prices & Currency', icon: '💵', checked: false },
-        { id: 'time', name: 'Times & Durations', icon: '🕒', checked: false },
-        { id: 'phone', name: 'Phone Numbers', icon: '📞', checked: false },
+        { id: "whole", name: "Whole Numbers", icon: "123", checked: true },
+        { id: "date", name: "Dates & Years", icon: "📅", checked: true },
+        { id: "price", name: "Prices & Currency", icon: "💵", checked: false },
+        { id: "time", name: "Times & Durations", icon: "🕒", checked: false },
+        { id: "phone", name: "Phone Numbers", icon: "📞", checked: false },
       ],
       speeds: [0.75, 1.0, 1.25],
       selectedSpeed: 1.0,
       counts: [10, 20, 50],
-      selectedCount: 20
-    }
+      selectedCount: 20,
+    };
   },
   onLoad() {
     const sysInfo = uni.getSystemInfoSync();
@@ -123,36 +99,41 @@ export default {
       this.categories[index].checked = !this.categories[index].checked;
     },
     startTraining() {
-      const selectedCategories = this.categories.filter(c => c.checked).map(c => c.id);
+      const selectedCategories = this.categories
+        .filter((c) => c.checked)
+        .map((c) => c.id);
       if (selectedCategories.length === 0) {
         uni.showToast({
-          title: 'Select at least one category',
-          icon: 'none'
+          title: "Select at least one category",
+          icon: "none",
         });
         return;
       }
-      
-      console.log('Starting training with:', {
+
+      console.log("Starting training with:", {
         categories: selectedCategories,
         speed: this.selectedSpeed,
-        count: this.selectedCount
+        count: this.selectedCount,
       });
-      
+
       // Navigate to dictation page (assuming it exists based on pages.json)
       uni.navigateTo({
-        url: `/pages/dictation?categories=${selectedCategories.join(',')}&speed=${this.selectedSpeed}&count=${this.selectedCount}`
+        url: `/pages/dictation?categories=${selectedCategories.join(
+          ","
+        )}&speed=${this.selectedSpeed}&count=${this.selectedCount}`,
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
 /* Global resets */
 page {
   background-color: #111827;
-  color: #F9FAFB;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #f9fafb;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .container {
@@ -186,7 +167,7 @@ page {
 }
 
 .icon {
-  color: #3B82F6;
+  color: #3b82f6;
   font-size: 20px;
   font-weight: bold;
 }
@@ -194,7 +175,7 @@ page {
 .title {
   font-size: 18px;
   font-weight: 600;
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 /* Content */
@@ -216,19 +197,19 @@ page {
   display: block;
   font-size: 18px;
   font-weight: 600;
-  color: #F9FAFB;
+  color: #f9fafb;
   margin-bottom: 4px;
 }
 
 .section-subtitle {
   display: block;
   font-size: 14px;
-  color: #9CA3AF;
+  color: #9ca3af;
 }
 
 /* Category List */
 .category-list {
-  background-color: #1F2937;
+  background-color: #1f2937;
   border-radius: 12px;
   padding: 0 16px;
 }
@@ -267,14 +248,14 @@ page {
 
 .category-name {
   font-size: 16px;
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .checkbox {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 2px solid #4B5563;
+  border: 2px solid #4b5563;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -282,8 +263,8 @@ page {
 }
 
 .checkbox-checked {
-  background-color: #3B82F6;
-  border-color: #3B82F6;
+  background-color: #3b82f6;
+  border-color: #3b82f6;
 }
 
 .check-mark {
@@ -294,7 +275,7 @@ page {
 
 /* Segment Control */
 .segment-control {
-  background-color: #1F2937;
+  background-color: #1f2937;
   border-radius: 8px;
   padding: 4px;
   display: flex;
@@ -312,17 +293,17 @@ page {
 }
 
 .segment-active {
-  background-color: #3B82F6;
+  background-color: #3b82f6;
 }
 
 .segment-text {
-  color: #9CA3AF;
+  color: #9ca3af;
   font-size: 14px;
   font-weight: 500;
 }
 
 .segment-text-active {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 /* Footer */
@@ -337,7 +318,7 @@ page {
 }
 
 .start-btn {
-  background-color: #3B82F6;
+  background-color: #3b82f6;
   height: 56px;
   border-radius: 12px;
   display: flex;
