@@ -17,14 +17,14 @@
       <text class="section-title">Your Progress</text>
       <view class="progress-cards">
         <!-- Accuracy Card -->
-        <view class="card progress-card" @click="toHistory" hover-class="card-hover">
+        <view class="card progress-card" hover-class="card-hover">
           <circular-progress :percentage="85" color="#2b86ff" label="85%" />
           <text class="card-label">Accuracy</text>
           <text class="card-subtext success">+5% today</text>
         </view>
 
         <!-- Daily Goal Card -->
-        <view class="card progress-card" @click="toHistory" hover-class="card-hover">
+        <view class="card progress-card" hover-class="card-hover">
           <circular-progress :percentage="60" color="#ff6b35" label="12/20" />
           <text class="card-label">Daily Goal</text>
           <text class="card-subtext">8 remaining</text>
@@ -147,9 +147,6 @@ export default {
   methods: {
     toCategory() {
       navigateTo("category");
-    },
-    toHistory() {
-      this.$emit("switch-tab", 1);
     },
   },
 };
