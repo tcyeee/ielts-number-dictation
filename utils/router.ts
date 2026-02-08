@@ -7,6 +7,10 @@ export const ROUTES = {
   result: '/pages/result',
   history: '/pages/history',
   profileAvatar: '/pages/profile/avatar',
+  profilePrivacy: '/pages/profile/privacy',
+  profileTerms: '/pages/profile/terms',
+  profileNotification: '/pages/profile/notification',
+  profileQuestionsPerSession: '/pages/profile/questions-per-session',
 } as const
 
 type RouteName = keyof typeof ROUTES
