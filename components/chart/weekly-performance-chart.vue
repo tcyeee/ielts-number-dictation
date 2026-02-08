@@ -11,24 +11,18 @@
     </view>
 
     <view class="chart-area">
-      <!-- Simple SVG Line Chart -->
-      <svg viewBox="0 0 300 100" class="line-chart-svg">
-        <!-- Gradient Definition -->
-        <defs>
-          <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="#2b86ff" stop-opacity="0.3" />
-            <stop offset="100%" stop-color="#2b86ff" stop-opacity="0" />
-          </linearGradient>
-        </defs>
-        <!-- Area -->
-        <path d="M0,80 Q30,40 50,50 T100,60 T150,40 T200,80 T250,20 T300,50 V100 H0 Z" fill="url(#gradient)" />
-        <!-- Line -->
-        <path d="M0,80 Q30,40 50,50 T100,60 T150,40 T200,80 T250,20 T300,50" fill="none" stroke="#2b86ff" stroke-width="3" stroke-linecap="round" />
-      </svg>
+      <!-- CSS Bar Chart -->
+      <view class="chart-bars">
+        <view v-for="(bar, index) in bars" :key="index" class="bar-container">
+          <view class="bar-fill" :style="{ height: bar.height + '%' }"></view>
+        </view>
+      </view>
 
       <!-- X-Axis Labels -->
       <view class="chart-labels">
-        <text class="label-text" v-for="(day, index) in days" :key="index">{{ day }}</text>
+        <view class="label-container" v-for="(day, index) in days" :key="index">
+          <text class="label-text">{{ day }}</text>
+        </view>
       </view>
     </view>
   </view>
@@ -36,22 +30,40 @@
 
 <script>
 export default {
-  name: 'WeeklyPerformanceChart',
+  name: "WeeklyPerformanceChart",
   props: {
     days: {
       type: Array,
-      default: () => ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+      default: () => ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
     },
     percentage: {
       type: [String, Number],
-      default: "88%"
+      default: "88%",
     },
     dateRange: {
       type: String,
-      default: "OCT 18 - 24"
-    }
-  }
-}
+      default: "OCT 18 - 24",
+    },
+    values: {
+      type: Array,
+      default: () => [20, 60, 50, 40, 60, 20, 80],
+    },
+  },
+  computed: {
+    bars() {
+      // Ensure we have values for all days
+      return this.days.map((_, index) => {
+        const val = this.values[index] !== undefined ? this.values[index] : 0;
+        // Cap height at 100
+        const height = Math.min(Math.max(val, 0), 100);
+
+        return {
+          height,
+        };
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -97,9 +109,29 @@ export default {
   .chart-area {
     width: 100%;
 
-    .line-chart-svg {
+    .chart-bars {
       width: 100%;
       height: 200rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 10rpx;
+      box-sizing: border-box;
+
+      .bar-container {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+        .bar-fill {
+          width: 50%;
+          background-color: #2b86ff;
+          border-radius: 8rpx;
+          min-height: 8rpx; // ensure small values are visible
+        }
+      }
     }
 
     .chart-labels {
@@ -107,6 +139,15 @@ export default {
       justify-content: space-between;
       margin-top: 20rpx;
       padding: 0 10rpx;
+      box-sizing: border-box;
+      width: 100%;
+
+      .label-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
       .label-text {
         color: $text-sub;

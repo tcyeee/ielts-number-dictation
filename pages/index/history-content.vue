@@ -66,7 +66,7 @@
 
 <script>
 import SafeArea from "@/components/safe-area/safe-area-top.vue";
-import WeeklyPerformanceChart from "@/components/weekly-performance-chart/weekly-performance-chart.vue";
+import WeeklyPerformanceChart from "@/components/chart/weekly-performance-chart.vue";
 
 export default {
   components: {
