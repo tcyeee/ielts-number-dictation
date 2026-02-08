@@ -3,7 +3,7 @@
     <swiper class="tab-swiper" :current="currentTab" :duration="250" @change="onSwiperChange">
       <swiper-item>
         <scroll-view scroll-y class="tab-scroll">
-          <home-content />
+          <home-content @switch-tab="onTabChange" />
         </scroll-view>
       </swiper-item>
       <swiper-item>

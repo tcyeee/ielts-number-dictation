@@ -149,7 +149,7 @@ export default {
       navigateTo("category");
     },
     toHistory() {
-      navigateTo("history");
+      this.$emit("switch-tab", 1);
     },
   },
 };
