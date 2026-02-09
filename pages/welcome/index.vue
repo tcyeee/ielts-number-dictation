@@ -42,11 +42,6 @@
           <text>Get Started</text>
           <text class="btn-icon">→</text>
         </button>
-
-        <view class="login-link" @click="handleSignIn">
-          <text class="text-gray">Already have an account?</text>
-          <text class="text-link">Sign In</text>
-        </view>
       </view>
     </view>
   </view>
@@ -54,22 +49,16 @@
 
 <script>
 import themeMixin from "@/mixins/themeMixin.js";
-import { navigateTo } from "@/utils/router";
+import { goHome } from "@/utils/router";
 
 export default {
   name: "WelcomePage",
   mixins: [themeMixin],
-
   methods: {
     handleGetStarted() {
-      // Go to main tabbar page
-      uni.switchTab({
-        url: "/pages/index/index",
-      });
+      goHome();
     },
     handleSignIn() {
-      // For now redirect to home as well, or login page if it exists
-      // Assuming no dedicated login page yet based on file list
       uni.showToast({
         title: "Login feature coming soon",
         icon: "none",

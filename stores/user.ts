@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 
+declare const uni: any;
+
 export const useUserStore = defineStore('user', {
   state: () => {
     // 从本地存储读取主题设置，默认为 auto（跟随系统）
