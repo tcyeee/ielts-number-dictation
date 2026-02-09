@@ -9,6 +9,7 @@
 		{"path": "pages/terms/terms","style": { "navigationStyle": "custom", "navigationBarTitleText": "Terms of Service" }},
 		{"path": "pages/profile/notification","style": { "navigationStyle": "custom", "navigationBarTitleText": "Notification Settings" }},
 		{"path": "pages/profile/questions-per-session","style": { "navigationStyle": "custom", "navigationBarTitleText": "Questions Per Session" }},
+		{"path": "pages/profile/questions-preferences","style": { "navigationStyle": "custom", "navigationBarTitleText": "Question Preferences" }},
 		{"path": "pages/profile/daily-practice-goal","style": { "navigationStyle": "custom", "navigationBarTitleText": "Daily Practice Goal" }}
 	],
 	"globalStyle": {

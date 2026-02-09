@@ -135,17 +135,10 @@ export default {
       navigateTo("profileQuestionsPerSession");
     },
     onDailyGoalClick() {
-      uni.showToast({
-        title: "Daily Goal settings coming soon",
-        icon: "none",
-      });
+      navigateTo("profileDailyGoal");
     },
     onQuestionPreferencesClick() {
-      // Future feature
-      uni.showToast({
-        title: "Question Preferences coming soon",
-        icon: "none",
-      });
+      navigateTo("profileQuestionPreferences");
     },
   },
 };
