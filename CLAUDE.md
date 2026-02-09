@@ -70,73 +70,100 @@ ielts-number-dictaion/
 ## 主题系统实现
 
 ### 技术方案
-项目采用混合主题方案：
-1. **uniapp 原生暗黑模式**：通过 `theme.json` + `pages.json` 配置系统级 UI（导航栏等）
-2. **CSS 变量**：页面级别使用 CSS 变量实现动态主题切换
-3. **Pinia 状态管理**：通过 user store 管理主题状态，持久化到本地存储
+
+项目采用 **混合主题方案**，同时支持自动跟随系统和手动切换：
+
+1. **theme.json**：定义 light/dark 主题的颜色变量（系统级 UI）
+2. **manifest.json**：在 mp-weixin 配置中启用 `darkmode: true`
+3. **pages.json**：使用 `@variableName` 引用 theme.json 中的变量（导航栏等系统 UI）
+4. **App.vue**：使用 CSS media query + data-theme 属性选择器定义全局 CSS 变量
+5. **themeMixin.js**：全局 mixin，自动为所有页面注入主题响应能力
+6. **user store**：管理用户主题偏好（`themeMode`: 'auto' | 'light' | 'dark'）
+7. **支持三种模式**：
+   - **Auto**（默认）：自动跟随系统设置（微信深色模式）
+   - **Light**：强制浅色模式，不受系统设置影响
+   - **Dark**：强制暗色模式，不受系统设置影响
+
+> 📖 **官方文档**：https://uniapp.dcloud.net.cn/tutorial/darkmode.html
 
 ### 主题配置文件
-- `/theme.json` - uniapp 主题配置，定义 light/dark 颜色变量
-- `/stores/user.ts` - 主题状态管理，包含 `isDarkMode` 状态
-- `/uni.scss` - SCSS 变量定义（保留用于兼容）
+
+- `/theme.json` - 定义浅色/暗色主题的颜色变量（用于系统级 UI）
+- `/manifest.json` - 启用暗黑模式支持（`mp-weixin.darkmode: true`）
+- `/pages.json` - 使用 `@variableName` 引用主题变量
+- `/App.vue` - 定义全局 CSS 变量（media query + data-theme 覆盖）
+- `/stores/user.ts` - 管理用户主题偏好（`themeMode`）
+- `/mixins/themeMixin.js` - 全局主题 mixin，自动注入到所有页面
+- `/main.js` - 全局注册 themeMixin
+- `/uni.scss` - SCSS 变量定义（用于编译时常量，如尺寸、字体）
+
+### 全局 CSS 变量定义（App.vue）
+
+```scss
+/* 默认浅色主题 */
+page {
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-main: #1a1a1a;
+  --text-sub: #666666;
+  /* ... 其他变量 */
+  background-color: var(--bg-color);
+}
+
+/* 自动跟随系统 - CSS media query */
+@media (prefers-color-scheme: dark) {
+  page {
+    --bg-color: #111823;
+    --card-bg: #1a2332;
+    --text-main: #ffffff;
+    --text-sub: #8b9bb4;
+    /* ... 其他变量 */
+  }
+}
+
+/* 手动强制浅色主题 - 覆盖 media query */
+page[data-theme="light"] {
+  --bg-color: #f5f5f5 !important;
+  --card-bg: #ffffff !important;
+  /* ... 其他变量 */
+}
+
+/* 手动强制暗色主题 - 覆盖 media query */
+page[data-theme="dark"] {
+  --bg-color: #111823 !important;
+  --card-bg: #1a2332 !important;
+  /* ... 其他变量 */
+}
+```
+
+**CSS 优先级**：手动设置（`data-theme`） > CSS media query > 默认样式
 
 ### 页面主题实现模式
 
-每个支持主题的页面需要：
+所有页面通过全局 mixin 自动获得主题响应能力：
 
-**1. Template 层**
+**Template 层**
 ```vue
 <template>
-  <view class="container" :data-theme="isDarkMode ? 'dark' : 'light'">
+  <!-- 绑定 pageThemeAttr，由 themeMixin 自动提供 -->
+  <view class="container" :data-theme="pageThemeAttr">
     <!-- 页面内容 -->
   </view>
 </template>
 ```
 
-**2. Script 层**
+**Script 层**
 ```javascript
-import { mapState } from "pinia";
-import { useUserStore } from "@/stores/user";
-
+// 无需手动导入 themeMixin，已全局注册
 export default {
-  computed: {
-    ...mapState(useUserStore, ["settings"]),
-    isDarkMode() {
-      return this.settings.isDarkMode;
-    },
-  },
+  // pageThemeAttr 由 themeMixin 自动注入
+  // 正常编写页面逻辑即可
 };
 ```
 
-**3. Style 层**
+**Style 层**
 ```scss
-/* 浅色主题变量 */
-.container[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --card-bg: #ffffff;
-  --text-main: #1a1a1a;
-  --text-sub: #666666;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --hover-bg: rgba(0, 0, 0, 0.05);
-}
-
-/* 暗色主题变量 */
-.container[data-theme="dark"] {
-  --bg-color: #111823;
-  --card-bg: #1a2332;
-  --text-main: #ffffff;
-  --text-sub: #8b9bb4;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-bg: rgba(255, 255, 255, 0.05);
-}
-
-/* 使用 CSS 变量 */
+/* 直接使用全局 CSS 变量，自动响应主题变化 */
 .container {
   background-color: var(--bg-color);
   min-height: 100vh;
@@ -145,26 +172,18 @@ export default {
 .card {
   background-color: var(--card-bg);
   color: var(--text-main);
+  border: 1px solid var(--border-color);
 }
 ```
 
-### 已支持主题的页面
+### themeMixin 工作原理
 
-**主要页面：**
-- ✅ pages/index/profile-content.vue
-- ✅ pages/index/home-content.vue
-- ✅ pages/index/history-content.vue
-- ✅ pages/dictation.vue
-- ✅ pages/result.vue
+`themeMixin` 全局 mixin 为所有页面自动注入：
+- `pageThemeAttr` computed：根据用户设置返回 'light'、'dark' 或 undefined（auto）
+- `handleThemeChange()` 方法：响应全局主题切换事件
+- 生命周期钩子：自动监听和清理主题变化事件
 
-**Profile 子页面：**
-- ✅ pages/profile/avatar.vue
-- ✅ pages/profile/notification.vue
-- ✅ pages/profile/privacy.vue
-- ✅ pages/profile/questions-per-session.vue
-- ✅ pages/profile/terms.vue
-
-### 主题变量映射
+### 主题变量速查表
 
 | CSS 变量 | 浅色主题 | 暗色主题 | 用途 |
 |---------|---------|---------|------|
@@ -177,12 +196,34 @@ export default {
 | `--accent-green` | #00d26a | #00d26a | 绿色强调 |
 | `--border-color` | rgba(0,0,0,0.1) | rgba(255,255,255,0.1) | 边框颜色 |
 | `--hover-bg` | rgba(0,0,0,0.05) | rgba(255,255,255,0.05) | 悬停背景 |
+| `--mask-bg` | rgba(0,0,0,0.6) | rgba(0,0,0,0.6) | 遮罩背景 |
+
+### 如何测试主题切换
+
+#### 测试自动跟随系统（Auto 模式）
+1. 在**个人中心**将主题设置为 **Auto**
+2. 在微信开发者工具中：**模拟器** → **切换到暗色模式**
+3. 或在手机微信中：**我** → **设置** → **通用** → **深色模式**
+4. 观察页面自动响应系统主题变化
+
+#### 测试手动切换主题
+1. 进入**个人中心**页面
+2. 点击 **Theme** 设置项
+3. 在 **Auto / Light / Dark** 三个选项中切换
+4. 观察页面立即响应主题变化
+5. 切换到其他页面，验证主题全局生效
+
+#### 测试优先级
+- **Auto 模式**：跟随系统设置（默认）
+- **Light 模式**：强制浅色，不受系统影响
+- **Dark 模式**：强制暗色，不受系统影响
 
 ## 开发规范
 
 ### 1. 样式规范
-- **新页面优先使用 CSS 变量**（`var(--xxx)`），以支持主题切换
-- **SCSS 变量**（`$xxx`）仅用于编译时常量（如尺寸、字体大小）
+- **所有颜色必须使用 CSS 变量**（`var(--xxx)`），以支持主题自动切换
+- **SCSS 变量**（`$xxx`）仅用于编译时常量（如尺寸、字体大小、间距等）
+- **不要硬编码颜色值**，所有颜色都应使用 CSS 变量
 - 保持 `uni.scss` 中的变量定义，用于向后兼容
 
 ### 2. 组件规范
@@ -209,35 +250,36 @@ export default {
 ### 添加新页面并支持主题
 
 1. 在 `pages.json` 中注册页面
-2. 创建页面文件，按照主题实现模式编写
-3. 在根元素添加 `:data-theme` 绑定
-4. 导入 user store 并添加 `isDarkMode` computed
-5. 定义 CSS 变量并使用 `var(--xxx)` 引用
+2. 创建页面文件，直接使用全局 CSS 变量
+3. **无需**添加 `:data-theme` 绑定
+4. **无需**导入 user store 或添加 `isDarkMode` computed
+5. 直接使用 `var(--xxx)` 引用全局 CSS 变量
 
 ### 修改主题颜色
 
-1. 编辑 `/theme.json` - 修改导航栏等系统级颜色
-2. 编辑 `/App.vue` - 修改全局 CSS 变量定义
-3. 编辑各页面的 CSS 变量定义（如需页面特定颜色）
+1. 编辑 `/theme.json` - 修改导航栏等系统级 UI 颜色
+2. 编辑 `/App.vue` - 修改全局 CSS 变量定义（浅色和暗色两套）
+3. **注意**：修改后需要同时更新 `page` 默认样式和 `@media (prefers-color-scheme: dark)` 中的样式
 
 ### 调试主题切换
 
-1. 进入"个人中心"页面
-2. 切换 "Dark Mode" 开关
-3. 检查页面是否正确响应主题变化
-4. 检查本地存储是否正确保存（key: "theme"）
+1. **微信开发者工具**：点击 **模拟器** → **切换到暗色模式**
+2. **真机测试**：在微信中开启/关闭深色模式
+3. 检查页面是否自动响应系统主题变化
+4. 验证所有颜色都正确切换（背景、文字、边框等）
 
 ## 注意事项
 
 ### 1. 主题相关
-- ⚠️ 不要在页面中使用 `page { background-color: $bg-color; }` 全局设置
+- ⚠️ **禁止**在页面中使用 `page { background-color: xxx; }` 全局设置，会覆盖主题
+- ⚠️ **禁止**添加 `:data-theme` 绑定或 `isDarkMode` 状态，主题由系统控制
 - ⚠️ 确保根元素有 `background-color: var(--bg-color)` 和 `min-height: 100vh`
-- ⚠️ 新增页面必须添加主题支持，否则会显示不一致
+- ⚠️ 新增页面必须使用 CSS 变量，否则无法响应主题切换
 
 ### 2. 样式相关
-- ⚠️ 避免使用硬编码颜色，使用 CSS 变量
+- ⚠️ **禁止**使用硬编码颜色（如 `#ffffff`、`#000000`），必须使用 CSS 变量
 - ⚠️ `rgba()` 等颜色函数中不能直接使用 CSS 变量，需要拆分或使用 `opacity` 属性
-- ⚠️ SCSS 变量在编译时确定，无法响应运行时主题切换
+- ⚠️ SCSS 变量在编译时确定，无法响应运行时主题切换，仅用于常量（尺寸、间距）
 
 ### 3. 性能相关
 - ⚠️ 避免在 `onShow` 中频繁操作 DOM
@@ -274,10 +316,24 @@ npm run build:mp-weixin
 ## 更新日志
 
 ### 2026-02-09
-- ✅ 实现完整的浅色/暗色主题切换功能
-- ✅ 所有主要页面和 profile 子页面支持主题切换
-- ✅ 主题状态持久化到本地存储
-- ✅ 优化主题切换性能和用户体验
+
+#### v3 - 混合主题方案（当前版本）
+- ✅ 实现混合主题方案：支持自动跟随系统 + 手动切换
+- ✅ 添加三段式主题选择器：Auto / Light / Dark
+- ✅ 创建 themeMixin 全局 mixin，自动为所有页面注入主题响应能力
+- ✅ 在个人中心添加主题切换按钮，用户可自由选择主题模式
+- ✅ 主题偏好持久化到本地存储
+- ✅ 更新 CLAUDE.md 和 AGENTS.md 文档
+
+#### v2 - 纯自动跟随系统方案（已废弃）
+- ~~采用 uni-app 官方推荐的 CSS media query 方案~~
+- ~~移除手动主题切换~~
+- ~~简化页面代码~~
+
+#### v1 - 初始手动主题切换实现（已废弃）
+- ~~实现手动浅色/暗色主题切换功能~~
+- ~~使用 Pinia store 管理主题状态~~
+- ~~主题状态持久化到本地存储~~
 
 ---
 

@@ -1,5 +1,5 @@
 <template>
-  <view class="container" :data-theme="isDarkMode ? 'dark' : 'light'">
+  <view class="container" :data-theme="pageThemeAttr">
     <!-- Top Safe Area -->
     <safe-area-top size="s" />
 
@@ -19,17 +19,39 @@
         </view>
       </view>
 
-      <!-- Dark Mode Group -->
+      <!-- Theme Settings Group -->
       <view class="menu-group">
-        <view class="menu-item">
+        <view class="menu-item theme-setting">
           <view class="item-left">
             <view class="icon-box" style="background-color: rgba(255, 179, 0, 0.1)">
               <!-- Sun Icon -->
               <view class="icon--feather--sun" style="width: 40rpx; height: 40rpx; color: #ffb300;"></view>
             </view>
-            <text class="item-text">Dark Mode</text>
+            <text class="item-text">Theme</text>
           </view>
-          <switch :checked="isDarkMode" color="#2b86ff" style="transform:scale(0.8)" @change="toggleDarkMode" />
+          <view class="theme-control">
+            <view
+              class="theme-option"
+              :class="{ active: currentThemeMode === 'auto' }"
+              @click="setTheme('auto')"
+            >
+              Auto
+            </view>
+            <view
+              class="theme-option"
+              :class="{ active: currentThemeMode === 'light' }"
+              @click="setTheme('light')"
+            >
+              Light
+            </view>
+            <view
+              class="theme-option"
+              :class="{ active: currentThemeMode === 'dark' }"
+              @click="setTheme('dark')"
+            >
+              Dark
+            </view>
+          </view>
         </view>
       </view>
 
@@ -131,33 +153,51 @@ import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
 import { navigateTo } from "@/utils/router";
 import { mapState, mapActions } from "pinia";
 import { useUserStore } from "@/stores/user";
+import themeMixin from "@/mixins/themeMixin.js";
 
 export default {
+  mixins: [themeMixin],
+
   components: {
     SafeAreaTop,
   },
+
   computed: {
     ...mapState(useUserStore, ["userInfo", "settings"]),
-    isDarkMode() {
-      return this.settings.isDarkMode;
-    },
     currentLanguage() {
       return this.settings.currentLanguage;
     },
     questionsPerSession() {
       return this.settings.questionsPerSession;
     },
+    currentThemeMode() {
+      return this.settings.themeMode;
+    },
   },
+
   methods: {
     ...mapActions(useUserStore, {
-      updateDarkMode: "toggleDarkMode",
       updateLanguage: "setLanguage",
+      updateTheme: "setThemeMode",
     }),
-    toggleDarkMode(e) {
-      this.updateDarkMode(e.detail.value);
-    },
     setLanguage(lang) {
       this.updateLanguage(lang);
+    },
+    setTheme(mode) {
+      this.updateTheme(mode);
+
+      // 显示提示
+      const themeNames = {
+        'auto': 'Auto (Follow System)',
+        'light': 'Light Mode',
+        'dark': 'Dark Mode'
+      };
+
+      uni.showToast({
+        title: themeNames[mode],
+        icon: 'success',
+        duration: 1500
+      });
     },
     onEditProfileClick() {
       navigateTo("profileAvatar");
@@ -179,32 +219,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* 浅色主题变量 */
-.container[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --card-bg: #ffffff;
-  --text-main: #1a1a1a;
-  --text-sub: #666666;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --hover-bg: rgba(0, 0, 0, 0.05);
-}
-
-/* 暗色主题变量 */
-.container[data-theme="dark"] {
-  --bg-color: #111823;
-  --card-bg: #1a2332;
-  --text-main: #ffffff;
-  --text-sub: #8b9bb4;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-bg: rgba(255, 255, 255, 0.05);
-}
-
 .container {
   min-height: 100vh;
   background-color: var(--bg-color);
@@ -356,6 +370,40 @@ export default {
   &.active {
     background-color: var(--accent-blue);
     color: #ffffff;
+  }
+}
+
+/* Theme Control - 三段式主题选择器 */
+.theme-setting {
+  padding: 24rpx 40rpx;
+}
+
+.theme-control {
+  display: flex;
+  background-color: var(--hover-bg);
+  border-radius: 12rpx;
+  padding: 4rpx;
+  gap: 4rpx;
+}
+
+.theme-option {
+  flex: 1;
+  padding: 10rpx 16rpx;
+  font-size: 24rpx;
+  color: var(--text-sub);
+  border-radius: 8rpx;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &.active {
+    background-color: var(--accent-blue);
+    color: #ffffff;
+  }
+
+  &:active {
+    opacity: 0.8;
   }
 }
 

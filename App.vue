@@ -13,8 +13,14 @@ export default {
 </script>
 
 <style lang="scss">
-/* 定义CSS变量 - 浅色主题 */
-page[data-theme="light"] {
+/*
+ * 全局 CSS 变量定义 - 混合主题方案
+ * 支持：自动跟随系统 + 手动切换主题
+ * 参考文档：https://uniapp.dcloud.net.cn/tutorial/darkmode.html
+ */
+
+/* 默认浅色主题 */
+page {
   --bg-color: #f5f5f5;
   --card-bg: #ffffff;
   --text-main: #1a1a1a;
@@ -25,36 +31,52 @@ page[data-theme="light"] {
   --border-color: rgba(0, 0, 0, 0.1);
   --hover-bg: rgba(0, 0, 0, 0.05);
   --mask-bg: rgba(0, 0, 0, 0.6);
-}
-
-/* 定义CSS变量 - 暗色主题 */
-page[data-theme="dark"] {
-  --bg-color: #111823;
-  --card-bg: #1a2332;
-  --text-main: #ffffff;
-  --text-sub: #8b9bb4;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-bg: rgba(255, 255, 255, 0.05);
-  --mask-bg: rgba(0, 0, 0, 0.6);
-}
-
-/* 默认使用暗色主题 */
-page {
-  --bg-color: #111823;
-  --card-bg: #1a2332;
-  --text-main: #ffffff;
-  --text-sub: #8b9bb4;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-bg: rgba(255, 255, 255, 0.05);
-  --mask-bg: rgba(0, 0, 0, 0.6);
 
   background-color: var(--bg-color);
+}
+
+/* 自动跟随系统 - 使用 CSS media query */
+@media (prefers-color-scheme: dark) {
+  page {
+    --bg-color: #111823;
+    --card-bg: #1a2332;
+    --text-main: #ffffff;
+    --text-sub: #8b9bb4;
+    --accent-blue: #2b86ff;
+    --accent-orange: #ff6b35;
+    --accent-green: #00d26a;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --hover-bg: rgba(255, 255, 255, 0.05);
+    --mask-bg: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* 手动强制浅色主题 - 覆盖 media query */
+page[data-theme="light"] {
+  --bg-color: #f5f5f5 !important;
+  --card-bg: #ffffff !important;
+  --text-main: #1a1a1a !important;
+  --text-sub: #666666 !important;
+  --accent-blue: #2b86ff !important;
+  --accent-orange: #ff6b35 !important;
+  --accent-green: #00d26a !important;
+  --border-color: rgba(0, 0, 0, 0.1) !important;
+  --hover-bg: rgba(0, 0, 0, 0.05) !important;
+  --mask-bg: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 手动强制暗色主题 - 覆盖 media query */
+page[data-theme="dark"] {
+  --bg-color: #111823 !important;
+  --card-bg: #1a2332 !important;
+  --text-main: #ffffff !important;
+  --text-sub: #8b9bb4 !important;
+  --accent-blue: #2b86ff !important;
+  --accent-orange: #ff6b35 !important;
+  --accent-green: #00d26a !important;
+  --border-color: rgba(255, 255, 255, 0.1) !important;
+  --hover-bg: rgba(255, 255, 255, 0.05) !important;
+  --mask-bg: rgba(0, 0, 0, 0.6) !important;
 }
 
 [class^="icon--"],

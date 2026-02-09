@@ -1,5 +1,5 @@
 <template>
-  <view class="container" :data-theme="isDarkMode ? 'dark' : 'light'">
+  <view class="container" :data-theme="pageThemeAttr">
     <custom-header title="Notification Settings" />
     <scroll-view scroll-y class="content-scroll">
       <view class="content-wrapper">
@@ -82,9 +82,6 @@ export default {
   },
   computed: {
     ...mapState(useUserStore, ["settings"]),
-    isDarkMode() {
-      return this.settings.isDarkMode;
-    },
     dailyReminder() {
       return this.settings.notification.dailyReminder;
     },
@@ -111,32 +108,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* 浅色主题变量 */
-.container[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --card-bg: #ffffff;
-  --text-main: #1a1a1a;
-  --text-sub: #666666;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --hover-bg: rgba(0, 0, 0, 0.05);
-}
-
-/* 暗色主题变量 */
-.container[data-theme="dark"] {
-  --bg-color: #111823;
-  --card-bg: #1a2332;
-  --text-main: #ffffff;
-  --text-sub: #8b9bb4;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-bg: rgba(255, 255, 255, 0.05);
-}
-
 .container {
   min-height: 100vh;
   background-color: var(--bg-color);

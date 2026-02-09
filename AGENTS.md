@@ -15,7 +15,7 @@
 
 1. **学习模块**: 电话号码、日期时间、价格、地址等不同类型的数字听写练习
 2. **进度系统**: 跟踪用户准确率、每日目标、连续练习天数
-3. **主题系统**: 支持浅色/暗色主题动态切换，所有页面统一实现
+3. **主题系统**: 采用 uni-app 官方暗黑模式方案，自动跟随系统设置（微信深色模式）
 
 ### 文件组织原则
 
@@ -35,8 +35,8 @@ static/          - 静态资源
 
 ```vue
 <template>
-  <!-- 1. 根元素必须包含主题绑定 -->
-  <view class="container" :data-theme="isDarkMode ? 'dark' : 'light'">
+  <!-- 1. 根元素直接使用 class，无需 data-theme 绑定 -->
+  <view class="container">
     <!-- 2. Safe Area 组件 -->
     <safe-area-top size="s" />
 
@@ -51,8 +51,7 @@ static/          - 静态资源
 // 1. 导入顺序：组件 > 工具 > Store > 类型
 import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
 import { navigateTo } from "@/utils/router";
-import { mapState } from "pinia";
-import { useUserStore } from "@/stores/user";
+// 注意：无需导入 user store 来获取主题状态
 
 export default {
   name: "PageName", // 组件名称
@@ -68,15 +67,7 @@ export default {
   },
 
   computed: {
-    // 1. Store 状态
-    ...mapState(useUserStore, ["settings"]),
-
-    // 2. 主题状态（必需）
-    isDarkMode() {
-      return this.settings.isDarkMode;
-    },
-
-    // 3. 其他计算属性
+    // 计算属性
   },
 
   methods: {
@@ -86,41 +77,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* 1. 主题变量定义 */
-.container[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --card-bg: #ffffff;
-  --text-main: #1a1a1a;
-  --text-sub: #666666;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --hover-bg: rgba(0, 0, 0, 0.05);
-}
-
-.container[data-theme="dark"] {
-  --bg-color: #111823;
-  --card-bg: #1a2332;
-  --text-main: #ffffff;
-  --text-sub: #8b9bb4;
-  --accent-blue: #2b86ff;
-  --accent-orange: #ff6b35;
-  --accent-green: #00d26a;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-bg: rgba(255, 255, 255, 0.05);
-}
-
-/* 2. 组件样式 */
+/* 直接使用全局 CSS 变量，无需定义主题变量 */
 .container {
-  background-color: var(--bg-color); /* 使用 CSS 变量 */
+  background-color: var(--bg-color); /* 自动响应系统主题 */
   min-height: 100vh;
 }
 
-/* 3. 子元素样式 */
 .card {
   background-color: var(--card-bg);
   color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.text-sub {
+  color: var(--text-sub);
 }
 </style>
 ```
@@ -152,25 +122,28 @@ export default {
 #### ❌ 避免做法
 
 ```scss
-/* 不要使用 SCSS 主题变量 */
+/* 不要使用 SCSS 颜色变量 */
 .text {
-  color: $text-main; /* ❌ 无法响应主题切换 */
+  color: $text-main; /* ❌ 无法响应系统主题切换 */
 }
 
 /* 不要硬编码颜色 */
 .card {
-  background-color: #1a2332; /* ❌ 固定颜色 */
+  background-color: #1a2332; /* ❌ 固定颜色，不会响应主题 */
 }
 
 /* 不要在 rgba() 中使用 CSS 变量 */
 .text {
-  color: rgba(var(--text-main), 0.8); /* ❌ 不支持 */
+  color: rgba(var(--text-main), 0.8); /* ❌ 小程序不支持 */
 }
 
 /* 不要设置 page 全局样式 */
 page {
-  background-color: $bg-color; /* ❌ 会覆盖页面主题 */
+  background-color: #111823; /* ❌ 会覆盖全局主题设置 */
 }
+
+/* 不要添加 data-theme 绑定 */
+<view :data-theme="isDarkMode ? 'dark' : 'light'"> /* ❌ 已废弃，主题由系统控制 */
 ```
 
 ### 命名规范
@@ -216,38 +189,38 @@ Store: camelCase
 
 ## 主题系统开发指南
 
+> **重要**：项目采用 uni-app 官方推荐的暗黑模式方案，主题自动跟随系统设置。
+> 参考文档：https://uniapp.dcloud.net.cn/tutorial/darkmode.html
+
 ### 添加新页面时
 
-**必须遵循的步骤**：
+**只需直接使用全局 CSS 变量，无需任何主题配置**：
 
-1. **Template**: 在根元素添加主题绑定
+1. **Template**: 直接使用 class，无需绑定
 ```vue
-<view class="container" :data-theme="isDarkMode ? 'dark' : 'light'">
+<view class="container">
+  <!-- 页面内容 -->
+</view>
 ```
 
-2. **Script**: 导入 store 并添加 computed
+2. **Script**: 无需导入 user store 或添加主题相关代码
 ```javascript
-import { mapState } from "pinia";
-import { useUserStore } from "@/stores/user";
-
-computed: {
-  ...mapState(useUserStore, ["settings"]),
-  isDarkMode() {
-    return this.settings.isDarkMode;
-  },
-}
+export default {
+  name: "PageName",
+  // 正常编写页面逻辑即可
+};
 ```
 
-3. **Style**: 定义 CSS 变量并使用
+3. **Style**: 直接使用全局 CSS 变量
 ```scss
-/* 定义变量 */
-.container[data-theme="light"] { /* 浅色变量 */ }
-.container[data-theme="dark"] { /* 暗色变量 */ }
-
-/* 使用变量 */
 .container {
-  background-color: var(--bg-color);
+  background-color: var(--bg-color);  /* 自动响应主题 */
   min-height: 100vh;
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-main);
 }
 ```
 
@@ -255,20 +228,23 @@ computed: {
 
 **检查清单**：
 
-- [ ] 是否已有 `:data-theme` 绑定？
-- [ ] 是否导入了 user store？
-- [ ] 是否有 `isDarkMode` computed？
-- [ ] 是否定义了两套 CSS 变量？
-- [ ] 是否所有颜色都使用 CSS 变量？
-- [ ] 根元素是否有 `background-color: var(--bg-color)`？
+- [x] ~~是否已有 `:data-theme` 绑定？~~ → **应移除**
+- [x] ~~是否导入了 user store？~~ → **如果仅用于主题，应移除**
+- [x] ~~是否有 `isDarkMode` computed？~~ → **应移除**
+- [x] ~~是否定义了两套 CSS 变量？~~ → **应移除，使用全局变量**
+- [ ] 是否所有颜色都使用 CSS 变量？ → **必须**
+- [ ] 根元素是否有 `background-color: var(--bg-color)`？ → **必须**
 
 ### 主题变量速查表
+
+**所有变量已在 App.vue 中全局定义，直接使用即可**：
 
 ```scss
 /* 页面和容器 */
 background-color: var(--bg-color);     // 页面背景
 background-color: var(--card-bg);      // 卡片背景
 background-color: var(--hover-bg);     // 悬停背景
+background-color: var(--mask-bg);      // 遮罩背景
 
 /* 文字 */
 color: var(--text-main);               // 主要文字
@@ -283,13 +259,34 @@ color: var(--accent-green);            // 绿色（成功）
 border-color: var(--border-color);     // 边框颜色
 ```
 
+### 修改全局主题颜色
+
+如需修改主题颜色，编辑 `/Users/tcyeee/Documents/Code/WeChatProjects/ielts-number-dictaion/App.vue`：
+
+```scss
+/* 浅色主题（默认） */
+page {
+  --bg-color: #f5f5f5;  /* 修改这里 */
+  /* ... */
+}
+
+/* 暗色主题 */
+@media (prefers-color-scheme: dark) {
+  page {
+    --bg-color: #111823;  /* 修改这里 */
+    /* ... */
+  }
+}
+```
+
 ## 常见开发场景
 
 ### 场景 1: 创建新的设置页面
 
 ```vue
 <template>
-  <view class="container" :data-theme="isDarkMode ? 'dark' : 'light'">
+  <!-- 直接使用 class，无需 data-theme 绑定 -->
+  <view class="container">
     <custom-header title="设置标题" />
 
     <scroll-view scroll-y class="content-scroll">
@@ -315,39 +312,21 @@ export default {
   components: { CustomHeader },
 
   computed: {
+    // 如需使用其他设置，可以映射 settings
     ...mapState(useUserStore, ["settings"]),
-    isDarkMode() {
-      return this.settings.isDarkMode;
-    },
   },
 
   methods: {
-    ...mapActions(useUserStore, ["updateSettings"]),
+    ...mapActions(useUserStore, ["updateNotificationSettings"]),
   },
 };
 </script>
 
 <style lang="scss" scoped>
-/* CSS 变量定义 */
-.container[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --card-bg: #ffffff;
-  --text-main: #1a1a1a;
-  --text-sub: #666666;
-  --border-color: rgba(0, 0, 0, 0.1);
-}
-
-.container[data-theme="dark"] {
-  --bg-color: #111823;
-  --card-bg: #1a2332;
-  --text-main: #ffffff;
-  --text-sub: #8b9bb4;
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-
+/* 直接使用全局 CSS 变量，无需定义主题变量 */
 .container {
   min-height: 100vh;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color);  /* 自动响应系统主题 */
 }
 
 .card {
@@ -413,12 +392,21 @@ methods: {
 ### 主题调试
 
 ```javascript
-// 在页面 onShow 中打印主题状态
+// 在页面 onShow 中获取系统主题
 onShow() {
-  const userStore = useUserStore();
-  console.log('当前主题:', userStore.settings.isDarkMode ? 'dark' : 'light');
-  console.log('本地存储:', uni.getStorageSync('theme'));
+  const systemInfo = uni.getSystemInfoSync();
+  console.log('当前系统主题:', systemInfo.theme); // 'light' 或 'dark'
 }
+
+// 监听主题变化（页面级别）
+onThemeChange(res) {
+  console.log('主题已切换为:', res.theme); // 'light' 或 'dark'
+}
+
+// 全局监听主题变化（App.vue）
+uni.onThemeChange((res) => {
+  console.log('全局主题变化:', res.theme);
+});
 ```
 
 ### 样式调试
@@ -437,7 +425,7 @@ onShow() {
 
 ## 常见问题及解决方案
 
-### Q1: 页面背景不随主题变化
+### Q1: 页面背景不随系统主题变化
 
 **原因**: 根元素缺少 `background-color: var(--bg-color)`
 
@@ -451,39 +439,47 @@ onShow() {
 
 ### Q2: 部分元素颜色不变
 
-**原因**: 使用了 SCSS 变量而非 CSS 变量
+**原因**: 使用了硬编码颜色或 SCSS 变量
 
 **解决**:
 ```scss
-/* ❌ 错误 */
+/* ❌ 错误 - 硬编码颜色 */
+.text {
+  color: #1a1a1a;
+}
+
+/* ❌ 错误 - SCSS 变量 */
 .text {
   color: $text-main;
 }
 
-/* ✅ 正确 */
+/* ✅ 正确 - CSS 变量 */
 .text {
   color: var(--text-main);
 }
 ```
 
-### Q3: 主题切换后页面不刷新
+### Q3: 如何在代码中获取当前主题
 
-**原因**: 未绑定 `:data-theme` 或 `isDarkMode` 未正确关联
+**方法 1**: 使用 `uni.getSystemInfoSync()`
+```javascript
+const systemInfo = uni.getSystemInfoSync();
+const currentTheme = systemInfo.theme; // 'light' 或 'dark'
+```
 
-**解决**:
-```vue
-<!-- 1. 确保模板有绑定 -->
-<view :data-theme="isDarkMode ? 'dark' : 'light'">
-
-<!-- 2. 确保 computed 正确 -->
-<script>
-computed: {
-  ...mapState(useUserStore, ["settings"]),
-  isDarkMode() {
-    return this.settings.isDarkMode;
-  },
+**方法 2**: 监听主题变化
+```javascript
+// 页面级别
+export default {
+  onThemeChange(res) {
+    console.log('当前主题:', res.theme);
+  }
 }
-</script>
+
+// 全局级别（App.vue）
+uni.onThemeChange((res) => {
+  console.log('主题切换为:', res.theme);
+});
 ```
 
 ### Q4: CSS 变量在 rgba() 中不工作
@@ -503,24 +499,38 @@ computed: {
   opacity: 0.8;
 }
 
-/* ✅ 或者直接定义半透明变量 */
-.container[data-theme="light"] {
+/* ✅ 或者在 App.vue 中定义半透明变量 */
+page {
   --text-main-faded: rgba(26, 26, 26, 0.8);
+}
+@media (prefers-color-scheme: dark) {
+  page {
+    --text-main-faded: rgba(255, 255, 255, 0.8);
+  }
 }
 ```
 
+### Q5: 微信开发者工具如何测试暗黑模式
+
+**步骤**:
+1. 打开微信开发者工具
+2. 点击顶部菜单栏 **模拟器** → **切换到暗色模式**
+3. 或者点击 **模拟器** → **编译配置** → 勾选 **使用暗色模式**
+4. 页面应自动响应主题变化
+
 ## 性能优化建议
 
-### 1. 避免频繁的主题切换操作
+### 1. 主题性能优化
 ```javascript
-// ❌ 避免在循环或频繁触发的事件中切换主题
-onScroll() {
-  // 不要在这里切换主题
-}
+// ✅ 主题由系统控制，无需手动管理
+// 使用 CSS 变量自动响应主题变化，性能最优
 
-// ✅ 主题切换应该是用户主动操作
-toggleTheme() {
-  this.updateDarkMode(!this.isDarkMode);
+// ✅ 如需在代码中响应主题变化，使用 onThemeChange
+onThemeChange(res) {
+  // 仅在必要时执行逻辑（如重新加载图片等）
+  if (res.theme === 'dark') {
+    // 执行暗色主题相关操作
+  }
 }
 ```
 
@@ -543,18 +553,18 @@ toggleTheme() {
 
 ### 生成代码时请遵循
 
-1. **完全遵循现有代码风格**：参考 `pages/index/profile-content.vue` 等已有页面
-2. **主题系统必须实现**：所有新页面都必须支持主题切换
+1. **完全遵循现有代码风格**：参考 `pages/profile/notification.vue` 等已有页面
+2. **主题系统自动响应**：所有新页面自动支持主题切换，使用 CSS 变量即可
 3. **使用项目已有组件**：如 `custom-header`, `safe-area-top` 等
 4. **保持一致性**：颜色、间距、圆角等使用统一的设计规范
 5. **添加必要注释**：复杂逻辑必须有注释说明
 
 ### 修改代码时请注意
 
-1. **不要破坏主题系统**：保留所有 CSS 变量和主题绑定
-2. **不要移除关键导入**：如 Pinia store 导入
+1. **不要破坏主题系统**：始终使用 CSS 变量（`var(--xxx)`），不要硬编码颜色
+2. **不要添加主题相关代码**：不要添加 `:data-theme` 绑定或 `isDarkMode` 状态
 3. **保持向后兼容**：修改 API 时考虑现有调用
-4. **测试主题切换**：修改样式后必须验证两种主题
+4. **测试主题切换**：在微信开发者工具中切换暗色模式，验证样式正确
 5. **保持文件结构**：不要随意移动文件或重命名
 
 ### 推荐的工作流程
@@ -562,11 +572,15 @@ toggleTheme() {
 1. **理解需求** → 明确要实现什么功能
 2. **查看现有代码** → 找类似功能的实现参考
 3. **遵循规范编写** → 按照本文档的规范编写代码
-4. **验证主题切换** → 确保浅色/暗色主题都正常
+4. **验证主题切换** → 在微信开发者工具中切换暗色模式，确保样式正常
 5. **测试功能** → 验证功能逻辑正确性
 
 ---
 
-**文档版本**: 1.0
+**文档版本**: 2.0
 **最后更新**: 2026-02-09
 **维护者**: tcyeee
+
+**更新日志**:
+- v2.0 (2026-02-09): 采用 uni-app 官方推荐的暗黑模式方案，移除手动主题切换
+- v1.0 (2026-02-09): 初始版本，手动主题切换（已废弃）

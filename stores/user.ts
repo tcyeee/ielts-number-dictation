@@ -2,9 +2,8 @@ import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
   state: () => {
-    // 从本地存储读取主题设置，默认为暗色
-    const savedTheme = uni.getStorageSync("theme") || "dark";
-    const isDarkMode = savedTheme === "dark";
+    // 从本地存储读取主题设置，默认为 auto（跟随系统）
+    const savedTheme = uni.getStorageSync("themeMode") || "auto";
 
     return {
       userInfo: {
@@ -14,7 +13,7 @@ export const useUserStore = defineStore('user', {
         avatar: "https://api.dicebear.com/9.x/avataaars/png?seed=Alex&backgroundColor=ffdfbf",
       },
       settings: {
-        isDarkMode,
+        themeMode: savedTheme, // 'auto' | 'light' | 'dark'
         currentLanguage: "EN",
         questionsPerSession: 10,
         notification: {
@@ -30,12 +29,13 @@ export const useUserStore = defineStore('user', {
     updateUserInfo(info: Partial<typeof this.userInfo>) {
       this.userInfo = { ...this.userInfo, ...info };
     },
-    toggleDarkMode(value: boolean) {
-      this.settings.isDarkMode = value;
-
+    setThemeMode(mode: 'auto' | 'light' | 'dark') {
+      this.settings.themeMode = mode;
       // 持久化存储主题设置
-      const theme = value ? "dark" : "light";
-      uni.setStorageSync("theme", theme);
+      uni.setStorageSync("themeMode", mode);
+
+      // 触发主题更新（通过自定义事件通知 App.vue）
+      uni.$emit('themeChange', mode);
     },
     setLanguage(lang: string) {
       this.settings.currentLanguage = lang;
