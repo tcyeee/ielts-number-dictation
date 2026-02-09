@@ -132,17 +132,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-$bg-color: #15171e; // Dark blue-ish black
-$card-bg: #1c2029;
-$primary-blue: #007aff;
-$text-color: #ffffff;
-$text-secondary: #8e8e93;
-
+<style lang="scss">
+@import "@/uni.scss";
 .container {
   min-height: 100vh;
   background-color: $bg-color;
-  color: $text-color;
+  color: $text-main;
   display: flex;
   flex-direction: column;
 }
@@ -162,7 +157,7 @@ $text-secondary: #8e8e93;
 
   .icon {
     font-size: 20px;
-    color: $text-color;
+    color: $text-main;
     padding: 8px;
   }
 }
@@ -185,8 +180,8 @@ $text-secondary: #8e8e93;
   }
 
   .tag {
-    background-color: rgba($primary-blue, 0.2);
-    color: $primary-blue;
+    background-color: rgba($accent-blue, 0.2);
+    color: $accent-blue;
     font-size: 10px;
     font-weight: 700;
     padding: 4px 8px;
@@ -196,10 +191,10 @@ $text-secondary: #8e8e93;
 
   .counter {
     font-size: 14px;
-    color: $text-secondary;
+    color: $text-sub;
 
     .highlight {
-      color: $text-color;
+      color: $text-main;
       font-weight: bold;
     }
   }
@@ -213,7 +208,7 @@ $text-secondary: #8e8e93;
 
   .progress-bar-fill {
     height: 100%;
-    background-color: $primary-blue;
+    background-color: $accent-blue;
     border-radius: 3px;
     transition: width 0.3s ease;
   }
@@ -237,7 +232,7 @@ $text-secondary: #8e8e93;
     .icon-box {
       width: 48px;
       height: 48px;
-      background-color: rgba($primary-blue, 0.1);
+      background-color: rgba($accent-blue, 0.1);
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -246,7 +241,7 @@ $text-secondary: #8e8e93;
 
       .speaker-icon {
         font-size: 24px;
-        color: $primary-blue;
+        color: $accent-blue;
       }
     }
 
@@ -262,7 +257,7 @@ $text-secondary: #8e8e93;
 
       .track-subtitle {
         font-size: 13px;
-        color: $text-secondary;
+        color: $text-sub;
       }
     }
   }
@@ -277,7 +272,7 @@ $text-secondary: #8e8e93;
 
     .bar {
       width: 4px;
-      background-color: $primary-blue;
+      background-color: $accent-blue;
       border-radius: 2px;
       opacity: 0.6;
     }
@@ -297,7 +292,7 @@ $text-secondary: #8e8e93;
 
     .time-text {
       font-size: 12px;
-      color: $text-secondary;
+      color: $text-sub;
     }
   }
 
@@ -324,13 +319,13 @@ $text-secondary: #8e8e93;
         width: 70px;
         height: 70px;
         border-radius: 35px;
-        background-color: $primary-blue;
-        box-shadow: 0 4px 12px rgba($primary-blue, 0.4);
+        background-color: $accent-blue;
+        box-shadow: 0 4px 12px rgba($accent-blue, 0.4);
       }
 
       .control-icon {
         font-size: 18px;
-        color: $text-color;
+        color: $text-main;
         margin-bottom: 2px;
       }
 
@@ -341,7 +336,7 @@ $text-secondary: #8e8e93;
 
       .control-label {
         font-size: 10px;
-        color: $text-secondary;
+        color: $text-sub;
       }
     }
   }
@@ -356,7 +351,7 @@ $text-secondary: #8e8e93;
 
   .input-label {
     font-size: 14px;
-    color: $text-color;
+    color: $text-main;
     margin-bottom: 12px;
     font-weight: 500;
   }
@@ -368,11 +363,11 @@ $text-secondary: #8e8e93;
       width: 100%;
       height: 60px;
       background-color: transparent;
-      border: 2px solid $primary-blue;
+      border: 2px solid $accent-blue;
       border-radius: 12px;
       text-align: center;
       font-size: 24px;
-      color: $text-color;
+      color: $text-main;
       font-weight: bold;
     }
   }
@@ -403,7 +398,7 @@ $text-secondary: #8e8e93;
   }
 
   .btn-primary {
-    background-color: $primary-blue;
+    background-color: $accent-blue;
     color: white;
   }
 
