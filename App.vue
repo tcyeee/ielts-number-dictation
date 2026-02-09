@@ -2,12 +2,12 @@
 export default {
   onLaunch: function () {
     console.log("App Launch");
-    
+
     // 监听系统主题变化
     uni.onThemeChange((res) => {
-      console.log('全局主题变化:', res.theme);
+      console.log("全局主题变化:", res.theme);
       // 通知所有页面系统主题已变更
-      uni.$emit('systemThemeChange', res);
+      uni.$emit("systemThemeChange", res);
     });
   },
   onShow: function () {
@@ -37,6 +37,7 @@ page {
   --accent-blue: #2b86ff;
   --accent-orange: #ff6b35;
   --accent-green: #00d26a;
+  --accent-red: #ff5252;
   --border-color: rgba(0, 0, 0, 0.1);
   --hover-bg: rgba(0, 0, 0, 0.05);
   --mask-bg: rgba(0, 0, 0, 0.6);
@@ -57,6 +58,7 @@ page {
     --accent-blue: #2b86ff;
     --accent-orange: #ff6b35;
     --accent-green: #00d26a;
+    --accent-red: #ff5252;
     --border-color: rgba(255, 255, 255, 0.1);
     --hover-bg: rgba(255, 255, 255, 0.05);
     --mask-bg: rgba(0, 0, 0, 0.6);
@@ -76,6 +78,7 @@ page {
   --accent-blue: #2b86ff !important;
   --accent-orange: #ff6b35 !important;
   --accent-green: #00d26a !important;
+  --accent-red: #ff5252 !important;
   --border-color: rgba(0, 0, 0, 0.1) !important;
   --hover-bg: rgba(0, 0, 0, 0.05) !important;
   --mask-bg: rgba(0, 0, 0, 0.6) !important;
@@ -93,6 +96,7 @@ page {
   --accent-blue: #2b86ff !important;
   --accent-orange: #ff6b35 !important;
   --accent-green: #00d26a !important;
+  --accent-red: #ff5252 !important;
   --border-color: rgba(255, 255, 255, 0.1) !important;
   --hover-bg: rgba(255, 255, 255, 0.05) !important;
   --mask-bg: rgba(0, 0, 0, 0.6) !important;

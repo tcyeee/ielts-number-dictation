@@ -153,11 +153,8 @@ import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
 import { navigateTo } from "@/utils/router";
 import { mapState, mapActions } from "pinia";
 import { useUserStore } from "@/stores/user";
-import themeMixin from "@/mixins/themeMixin.js";
 
 export default {
-  mixins: [themeMixin],
-
   components: {
     SafeAreaTop,
   },

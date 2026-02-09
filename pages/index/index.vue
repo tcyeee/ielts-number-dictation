@@ -26,10 +26,8 @@ import HomeContent from "./home-content.vue";
 import HistoryContent from "./history-content.vue";
 import ProfileContent from "./profile-content.vue";
 import BottomNav from "@/components/nav/bottom-nav.vue";
-import themeMixin from "@/mixins/themeMixin.js";
 
 export default {
-  mixins: [themeMixin],
   components: {
     HomeContent,
     HistoryContent,

@@ -35,10 +35,8 @@
 import CustomHeader from "@/components/nav/custom-header.vue";
 import { mapState } from "pinia";
 import { useUserStore } from "@/stores/user";
-import themeMixin from "@/mixins/themeMixin.js";
 
 export default {
-  mixins: [themeMixin],
   components: {
     CustomHeader,
   },

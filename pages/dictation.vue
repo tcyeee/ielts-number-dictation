@@ -1,6 +1,6 @@
 <template>
-  <CustomNavbar title="Number Dictation" />
   <view class="container" :data-theme="pageThemeAttr">
+    <CustomNavbar title="Number Dictation" />
     <SafeAreaTop />
     <view class="content">
       <!-- Progress Section -->

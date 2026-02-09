@@ -96,7 +96,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -148,7 +147,7 @@ export default {
     progressStyle() {
       const percentage = (this.score / this.total) * 100;
       return {
-        background: `conic-gradient(#2979ff ${percentage}%, #2c2c2e 0)`,
+        background: `conic-gradient(var(--accent-blue) ${percentage}%, var(--border-color) 0)`,
       };
     },
   },
@@ -172,20 +171,6 @@ export default {
 </script>
 
 <style lang="scss">
-$bg-color: #121418;
-$card-bg: #1e2025;
-$primary-blue: #2979ff;
-$success-green: #00c853;
-$error-red: #ff5252;
-$text-main: #ffffff;
-$text-sub: #889096;
-
-page {
-  background-color: $bg-color;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-}
-
 .container {
   width: 100%;
   min-height: 100vh;
@@ -387,7 +372,7 @@ page {
   }
 
   .play-icon {
-    color: $primary-blue;
+    color: var(--accent-blue);
     font-size: 12px;
     margin-left: 2px; /* Visual correction */
   }
@@ -416,15 +401,15 @@ page {
     color: var(--text-main);
   }
   .text-red {
-    color: $error-red;
+    color: var(--accent-red);
     text-decoration: line-through;
   }
   .text-green {
-    color: $success-green;
+    color: var(--accent-green);
   }
 
   .status-icon-check {
-    color: $success-green;
+    color: var(--accent-green);
     font-size: 14px;
     background-color: rgba(0, 200, 83, 0.2);
     border-radius: 50%;
@@ -437,7 +422,7 @@ page {
   }
 
   .status-icon-cross {
-    color: $error-red;
+    color: var(--accent-red);
     font-size: 14px;
     background-color: rgba(255, 82, 82, 0.2);
     border-radius: 50%;
@@ -456,7 +441,7 @@ page {
   }
 
   .badge-text {
-    color: $success-green;
+    color: var(--accent-green);
     font-size: 10px;
     font-weight: bold;
   }
@@ -485,7 +470,7 @@ page {
 }
 
 .btn-primary {
-  background-color: $primary-blue;
+  background-color: var(--accent-blue);
   .btn-text {
     color: white;
   }
@@ -494,7 +479,7 @@ page {
 .btn-secondary {
   background-color: var(--card-bg);
   .btn-text {
-    color: white;
+    color: var(--text-main);
   }
 }
 
