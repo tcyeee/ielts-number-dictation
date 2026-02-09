@@ -1,5 +1,5 @@
 <template>
-  <view class="page-root">
+  <view class="page-root" :data-theme="pageThemeAttr">
     <swiper class="tab-swiper" :current="currentTab" :duration="250" @change="onSwiperChange">
       <swiper-item>
         <scroll-view scroll-y class="tab-scroll">
@@ -26,8 +26,10 @@ import HomeContent from "./home-content.vue";
 import HistoryContent from "./history-content.vue";
 import ProfileContent from "./profile-content.vue";
 import BottomNav from "@/components/nav/bottom-nav.vue";
+import themeMixin from "@/mixins/themeMixin.js";
 
 export default {
+  mixins: [themeMixin],
   components: {
     HomeContent,
     HistoryContent,
@@ -60,7 +62,7 @@ export default {
 
 <style lang="scss">
 page {
-  background-color: $bg-color;
+  background-color: var(--bg-color);
 }
 
 .tab-swiper {

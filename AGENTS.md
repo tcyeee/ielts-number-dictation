@@ -15,7 +15,7 @@
 
 1. **学习模块**: 电话号码、日期时间、价格、地址等不同类型的数字听写练习
 2. **进度系统**: 跟踪用户准确率、每日目标、连续练习天数
-3. **主题系统**: 采用 uni-app 官方暗黑模式方案，自动跟随系统设置（微信深色模式）
+3. **主题系统**: 采用混合模式，支持自动跟随系统 + 手动强制切换（Light/Dark）
 
 ### 文件组织原则
 
@@ -35,8 +35,8 @@ static/          - 静态资源
 
 ```vue
 <template>
-  <!-- 1. 根元素直接使用 class，无需 data-theme 绑定 -->
-  <view class="container">
+  <!-- 1. 根元素绑定 theme 属性 -->
+  <view class="container" :data-theme="pageThemeAttr">
     <!-- 2. Safe Area 组件 -->
     <safe-area-top size="s" />
 
@@ -48,13 +48,15 @@ static/          - 静态资源
 </template>
 
 <script>
-// 1. 导入顺序：组件 > 工具 > Store > 类型
+// 1. 导入顺序：组件 > 工具 > Store > Mixin
 import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
 import { navigateTo } from "@/utils/router";
-// 注意：无需导入 user store 来获取主题状态
+import themeMixin from "@/mixins/themeMixin.js";
 
 export default {
   name: "PageName", // 组件名称
+
+  mixins: [themeMixin],
 
   components: {
     SafeAreaTop,
@@ -189,38 +191,36 @@ Store: camelCase
 
 ## 主题系统开发指南
 
-> **重要**：项目采用 uni-app 官方推荐的暗黑模式方案，主题自动跟随系统设置。
-> 参考文档：https://uniapp.dcloud.net.cn/tutorial/darkmode.html
+> **重要**：项目采用混合主题方案。
+> 1. **默认/Auto**: 自动跟随系统（CSS media query）。
+> 2. **Manual**: 用户可手动强制 Light/Dark 模式，通过 CSS 变量重定义实现。
 
 ### 添加新页面时
 
-**只需直接使用全局 CSS 变量，无需任何主题配置**：
+**必须使用 themeMixin 并绑定 data-theme**：
 
-1. **Template**: 直接使用 class，无需绑定
+1. **Template**: 根元素绑定 `data-theme`
 ```vue
-<view class="container">
+<view class="container" :data-theme="pageThemeAttr">
   <!-- 页面内容 -->
 </view>
 ```
 
-2. **Script**: 无需导入 user store 或添加主题相关代码
+2. **Script**: 引入 themeMixin
 ```javascript
+import themeMixin from "@/mixins/themeMixin.js";
+
 export default {
-  name: "PageName",
-  // 正常编写页面逻辑即可
+  mixins: [themeMixin],
+  // ...
 };
 ```
 
 3. **Style**: 直接使用全局 CSS 变量
 ```scss
 .container {
-  background-color: var(--bg-color);  /* 自动响应主题 */
+  background-color: var(--bg-color);
   min-height: 100vh;
-}
-
-.card {
-  background-color: var(--card-bg);
-  color: var(--text-main);
 }
 ```
 
@@ -228,11 +228,9 @@ export default {
 
 **检查清单**：
 
-- [x] ~~是否已有 `:data-theme` 绑定？~~ → **应移除**
-- [x] ~~是否导入了 user store？~~ → **如果仅用于主题，应移除**
-- [x] ~~是否有 `isDarkMode` computed？~~ → **应移除**
-- [x] ~~是否定义了两套 CSS 变量？~~ → **应移除，使用全局变量**
-- [ ] 是否所有颜色都使用 CSS 变量？ → **必须**
+- [ ] 是否引入了 `themeMixin`？ → **必须**
+- [ ] 根元素是否绑定了 `:data-theme="pageThemeAttr"`？ → **必须**
+- [ ] 是否所有颜色都使用 CSS 变量（`var(--xxx)`）？ → **必须**
 - [ ] 根元素是否有 `background-color: var(--bg-color)`？ → **必须**
 
 ### 主题变量速查表

@@ -52,7 +52,7 @@ page {
 }
 
 /* 手动强制浅色主题 - 覆盖 media query */
-page[data-theme="light"] {
+[data-theme="light"] {
   --bg-color: #f5f5f5 !important;
   --card-bg: #ffffff !important;
   --text-main: #1a1a1a !important;
@@ -66,7 +66,7 @@ page[data-theme="light"] {
 }
 
 /* 手动强制暗色主题 - 覆盖 media query */
-page[data-theme="dark"] {
+[data-theme="dark"] {
   --bg-color: #111823 !important;
   --card-bg: #1a2332 !important;
   --text-main: #ffffff !important;
