@@ -30,25 +30,13 @@
             <text class="item-text">Theme</text>
           </view>
           <view class="theme-control">
-            <view
-              class="theme-option"
-              :class="{ active: currentThemeMode === 'auto' }"
-              @click="setTheme('auto')"
-            >
+            <view class="theme-option" :class="{ active: currentThemeMode === 'auto' }" @click="setTheme('auto')">
               Auto
             </view>
-            <view
-              class="theme-option"
-              :class="{ active: currentThemeMode === 'light' }"
-              @click="setTheme('light')"
-            >
+            <view class="theme-option" :class="{ active: currentThemeMode === 'light' }" @click="setTheme('light')">
               Light
             </view>
-            <view
-              class="theme-option"
-              :class="{ active: currentThemeMode === 'dark' }"
-              @click="setTheme('dark')"
-            >
+            <view class="theme-option" :class="{ active: currentThemeMode === 'dark' }" @click="setTheme('dark')">
               Dark
             </view>
           </view>
@@ -182,19 +170,6 @@ export default {
     },
     setTheme(mode) {
       this.updateTheme(mode);
-
-      // 显示提示
-      const themeNames = {
-        'auto': 'Auto (Follow System)',
-        'light': 'Light Mode',
-        'dark': 'Dark Mode'
-      };
-
-      uni.showToast({
-        title: themeNames[mode],
-        icon: 'success',
-        duration: 1500
-      });
     },
     onEditProfileClick() {
       navigateTo("profileAvatar");

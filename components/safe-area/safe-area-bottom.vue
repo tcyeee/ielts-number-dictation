@@ -28,5 +28,6 @@ export default {
 <style scoped>
 .safe-area-bottom {
   width: 100%;
+  background-color: var(--bg-color);
 }
 </style>

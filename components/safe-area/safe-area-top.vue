@@ -69,5 +69,6 @@ export default {
 .safe-area {
   width: 100%;
   transition: height 0.3s ease;
+  background-color: var(--bg-color);
 }
 </style>
