@@ -131,9 +131,9 @@
         <!-- Contact Us -->
         <button class="menu-item contact-btn" open-type="contact">
           <view class="item-left">
-            <view class="icon-box grey">
-              <!-- Info Icon - Grey -->
-              <view class="icon--feather--info" style="width: 40rpx; height: 40rpx; color: #8b9bb4;"></view>
+            <view class="icon-box blue">
+              <!-- Message Icon - Blue -->
+              <view class="icon--feather--message-square" style="width: 40rpx; height: 40rpx; color: #2b86ff;"></view>
             </view>
             <text class="item-text">Contact Us</text>
           </view>
