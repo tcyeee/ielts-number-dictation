@@ -1,7 +1,7 @@
 <template>
   <view class="fixed-header">
     <safe-area-top />
-    <view class="nav-header">
+    <view class="nav-header" :style="{ paddingRight: headerPaddingRight + 'px' }">
       <view class="back-btn" @click="goBack">
         <text class="icon-back">❮</text>
       </view>
@@ -27,7 +27,31 @@ export default {
       default: "",
     },
   },
+  data() {
+    return {
+      headerPaddingRight: 16,
+    };
+  },
+  created() {
+    this.initHeaderPadding();
+  },
   methods: {
+    initHeaderPadding() {
+      // #ifdef MP-WEIXIN
+      try {
+        const systemInfo = uni.getSystemInfoSync();
+        const menuButtonInfo = uni.getMenuButtonBoundingClientRect();
+        // Calculate the space occupied by the capsule button on the right
+        // windowWidth - capsule.left gives the width from the right edge to the left of the capsule
+        if (systemInfo && menuButtonInfo) {
+          this.headerPaddingRight =
+            systemInfo.windowWidth - menuButtonInfo.left;
+        }
+      } catch (e) {
+        console.error("Failed to get menu button info", e);
+      }
+      // #endif
+    },
     goBack() {
       uni.navigateBack();
       this.$emit("back");
