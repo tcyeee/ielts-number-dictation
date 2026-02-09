@@ -77,7 +77,8 @@ export default {
   width: calc(100% / 3 - 20rpx / 3);
   height: 96rpx;
   margin-top: -48rpx;
-  background-color: rgba($accent-blue, 0.15);
+  background-color: $accent-blue;
+  opacity: 0.15;
   border-radius: 48rpx;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 0;

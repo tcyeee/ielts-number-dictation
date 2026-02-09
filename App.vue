@@ -25,6 +25,8 @@ page {
   --card-bg: #ffffff;
   --text-main: #1a1a1a;
   --text-sub: #666666;
+  --text-placeholder: rgba(26, 26, 26, 0.4);
+  --text-disable: rgba(26, 26, 26, 0.2);
   --accent-blue: #2b86ff;
   --accent-orange: #ff6b35;
   --accent-green: #00d26a;
@@ -42,6 +44,8 @@ page {
     --card-bg: #1a2332;
     --text-main: #ffffff;
     --text-sub: #8b9bb4;
+    --text-placeholder: rgba(255, 255, 255, 0.4);
+    --text-disable: rgba(255, 255, 255, 0.2);
     --accent-blue: #2b86ff;
     --accent-orange: #ff6b35;
     --accent-green: #00d26a;
@@ -57,6 +61,8 @@ page {
   --card-bg: #ffffff !important;
   --text-main: #1a1a1a !important;
   --text-sub: #666666 !important;
+  --text-placeholder: rgba(26, 26, 26, 0.4) !important;
+  --text-disable: rgba(26, 26, 26, 0.2) !important;
   --accent-blue: #2b86ff !important;
   --accent-orange: #ff6b35 !important;
   --accent-green: #00d26a !important;
@@ -71,6 +77,8 @@ page {
   --card-bg: #1a2332 !important;
   --text-main: #ffffff !important;
   --text-sub: #8b9bb4 !important;
+  --text-placeholder: rgba(255, 255, 255, 0.4) !important;
+  --text-disable: rgba(255, 255, 255, 0.2) !important;
   --accent-blue: #2b86ff !important;
   --accent-orange: #ff6b35 !important;
   --accent-green: #00d26a !important;

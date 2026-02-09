@@ -20,14 +20,14 @@
  * - CSS变量在App.vue中定义，根据page[data-theme]切换
  */
 
-/* 自定义主题变量 - 暗色主题（SCSS变量） */
-$bg-color: #111823;
-$card-bg: #1a2332;
-$text-main: #ffffff;
-$text-sub: #8b9bb4;
-$accent-blue: #2b86ff;
-$accent-orange: #ff6b35;
-$accent-green: #00d26a;
+/* 自定义主题变量 - 映射到 CSS 变量 */
+$bg-color: var(--bg-color);
+$card-bg: var(--card-bg);
+$text-main: var(--text-main);
+$text-sub: var(--text-sub);
+$accent-blue: var(--accent-blue);
+$accent-orange: var(--accent-orange);
+$accent-green: var(--accent-green);
 
 /* 颜色变量 */
 
@@ -41,17 +41,17 @@ $uni-color-error: #dd524d;
 $uni-text-color: $text-main; //基本色
 $uni-text-color-inverse: #333; //反色
 $uni-text-color-grey: $text-sub; //辅助灰色，如加载更多的提示信息
-$uni-text-color-placeholder: rgba($text-main, 0.4);
-$uni-text-color-disable: rgba($text-main, 0.2);
+$uni-text-color-placeholder: var(--text-placeholder);
+$uni-text-color-disable: var(--text-disable);
 
 /* 背景颜色 */
 $uni-bg-color: $bg-color;
 $uni-bg-color-grey: $card-bg;
-$uni-bg-color-hover: rgba(255, 255, 255, 0.05); //点击状态颜色
-$uni-bg-color-mask: rgba(0, 0, 0, 0.6); //遮罩颜色
+$uni-bg-color-hover: var(--hover-bg); //点击状态颜色
+$uni-bg-color-mask: var(--mask-bg); //遮罩颜色
 
 /* 边框颜色 */
-$uni-border-color: rgba(255, 255, 255, 0.1);
+$uni-border-color: var(--border-color);
 
 /* 尺寸变量 */
 
