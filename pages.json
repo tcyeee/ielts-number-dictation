@@ -1,5 +1,6 @@
 {
 	"pages": [
+		{"path": "pages/welcome/index", "style": { "navigationStyle": "custom" }},
 		{"path": "pages/index/index","style": { "navigationStyle": "custom", "navigationBarTitleText": "首页" }},
 		{"path": "pages/dictation","style": { "navigationStyle": "custom", "navigationBarTitleText": "听写" }},
 		{"path": "pages/result","style": { "navigationStyle": "custom", "navigationBarTitleText": "结果" }},
