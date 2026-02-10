@@ -1,11 +1,16 @@
 <script>
 import { loginAndAuth } from "@/service/auth";
+import { useUserStore } from "@/stores/user";
 
 export default {
   onLaunch: function () {
     console.log("App Launch");
-    loginAndAuth();
-    // TODO 获取用户配置信息
+
+    // 登录成功后获取用户配置
+    loginAndAuth().then(() => {
+      const userStore = useUserStore();
+      userStore.fetchUserSettings();
+    });
 
     // 监听系统主题变化
     uni.onThemeChange((res) => {

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { getUserSettings } from '@/service/api';
 import type { UserSettings, ThemeMode, NotificationSettings, QuestionCategory } from '@/typing/UserSettings';
 
 declare const uni: any;
@@ -97,6 +98,45 @@ export const useUserStore = defineStore('user', {
         "Quantity",
         "Percentage"
       ] as QuestionCategory[];
+    },
+    async fetchUserSettings() {
+      try {
+        const settings = await getUserSettings();
+        if (settings) {
+          // 这里的合并逻辑确保了如果后端返回空，或者部分字段，我们依然保留默认值
+          // 深度合并 notification 对象
+          if (settings.notification) {
+            this.settings.notification = { ...this.settings.notification, ...settings.notification };
+          }
+
+          // 合并其他顶层属性
+          this.settings = { ...this.settings, ...settings };
+
+          // 确保 notification 是合并后的结果 (because the line above overwrites it if settings.notification exists)
+          // Actually, { ...this.settings, ...settings } will overwrite this.settings.notification with settings.notification
+          // So if settings.notification is partial, we lose the defaults for missing keys in notification?
+          // Let's refine the merge strategy.
+
+          // Better approach:
+          // 1. Merge top level
+          // 2. If notification exists in fetched settings, merge it carefully
+
+          // Re-thinking:
+          const newSettings = { ...this.settings, ...settings };
+          if (settings.notification) {
+            newSettings.notification = { ...this.settings.notification, ...settings.notification };
+          }
+          this.settings = newSettings;
+
+          // 如果有主题设置，需要触发副作用（本地存储+通知）
+          if (settings.themeMode) {
+            this.setThemeMode(settings.themeMode);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch user settings:", error);
+        // 失败时保持默认配置
+      }
     }
   },
 });
