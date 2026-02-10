@@ -31,11 +31,11 @@
     <view class="action-section">
       <!-- Start Button -->
       <view class="start-btn" hover-class="btn-hover" @click="startPractice">
-        <text class="start-text">▶ START</text>
+        <text class="start-text"> ▶ START</text>
       </view>
 
       <!-- Adaptive Mix Button -->
-      <view class="adaptive-btn" hover-class="btn-hover" @click="toggleMode">
+      <view class="adaptive-btn" hover-class="btn-hover" @click="goToPreferences">
         <view class="icon--feather--zap icon-size-16 adaptive-icon"></view>
         <text class="adaptive-text">ADAPTIVE MIX: 10 QUESTIONS</text>
       </view>
@@ -86,12 +86,8 @@ export default {
     startPractice() {
       navigateTo("dictation");
     },
-    toggleMode() {
-      // Toggle mode logic or show settings
-      uni.showToast({
-        title: "Mode Settings",
-        icon: "none",
-      });
+    goToPreferences() {
+      navigateTo("profileQuestionPreferences");
     },
   },
 };
