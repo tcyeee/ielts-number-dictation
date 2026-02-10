@@ -42,6 +42,7 @@ import CustomHeader from "@/components/nav/custom-header.vue";
 import { mapState, mapActions } from "pinia";
 import { useUserStore } from "@/stores/user";
 import themeMixin from "@/mixins/themeMixin.js";
+import { QUESTION_CATEGORIES } from "@/utils/constants.js";
 
 export default {
   name: "QuestionsPreferences",
@@ -51,56 +52,7 @@ export default {
   },
   data() {
     return {
-      categories: [
-        {
-          id: "Date",
-          label: "Date",
-          icon: "icon--fluent--calendar-date-24-regular",
-          bgClass: "bg-blue",
-        },
-        {
-          id: "Time",
-          label: "Time",
-          icon: "icon--feather--clock",
-          bgClass: "bg-orange",
-        },
-        {
-          id: "Phone",
-          label: "Phone",
-          icon: "icon--f7--phone",
-          bgClass: "bg-green",
-        },
-        {
-          id: "Price",
-          label: "Price",
-          icon: "icon--bx--dollar-circle",
-          bgClass: "bg-red",
-        },
-        {
-          id: "Measurement",
-          label: "Measurement",
-          icon: "icon--feather--sliders",
-          bgClass: "bg-purple",
-        },
-        {
-          id: "Address",
-          label: "Address",
-          icon: "icon--mynaui--map-pinned",
-          bgClass: "bg-orange-dark",
-        },
-        {
-          id: "Quantity",
-          label: "Quantity",
-          icon: "icon--feather--box",
-          bgClass: "bg-teal",
-        },
-        {
-          id: "Percentage",
-          label: "Percentage",
-          icon: "icon--feather--percent",
-          bgClass: "bg-indigo",
-        },
-      ],
+      categories: QUESTION_CATEGORIES,
     };
   },
   computed: {

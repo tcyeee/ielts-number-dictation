@@ -27,26 +27,26 @@
     <!-- Weekly Performance Chart -->
     <weekly-performance-chart :days="days" />
 
-    <!-- Recent Sessions -->
+    <!-- Category Statistics -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title-small">Recent Sessions</text>
+        <text class="section-title-small">Practice Statistics</text>
       </view>
 
       <view class="session-list">
-        <view class="card session-card" v-for="(session, index) in filteredSessions" :key="index">
+        <view class="card session-card" v-for="(stat, index) in categoryStats" :key="index">
           <view class="session-left">
-            <view class="session-icon" :class="getSessionTypeClass(session.type)">
-              <text class="icon-text">{{ session.icon }}</text>
+            <view class="session-icon" :class="stat.bgClass">
+              <view :class="['icon', stat.icon]"></view>
             </view>
             <view class="session-info">
-              <text class="session-title">{{ session.title }}</text>
-              <text class="session-date">{{ session.date }}</text>
+              <text class="session-title">{{ stat.label }}</text>
+              <text class="session-date">Total: {{ stat.count }}</text>
             </view>
           </view>
           <view class="session-right">
-            <text class="session-score">{{ session.score }}</text>
-            <text class="session-percent" :class="getScoreClass(session.percent)">{{ session.percent }}%</text>
+            <text class="session-score">{{ stat.accuracy }}%</text>
+            <text class="session-percent" :class="getScoreClass(stat.accuracy)">Accuracy</text>
           </view>
         </view>
       </view>
@@ -60,6 +60,7 @@ import SafeArea from "@/components/safe-area/safe-area-top.vue";
 import WeeklyPerformanceChart from "@/components/chart/weekly-performance-chart.vue";
 import { mapState } from "pinia";
 import { useUserStore } from "@/stores/user";
+import { QUESTION_CATEGORIES } from "@/utils/constants.js";
 
 export default {
   components: {
@@ -69,66 +70,21 @@ export default {
   data() {
     return {
       days: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
-      tabs: ["All Sessions", "Numbers", "Dates", "Prices", "Addresses"],
-      currentTab: 0,
-      sessions: [
-        {
-          type: "Numbers",
-          title: "Phone Numbers",
-          date: "Today, 2:45 PM",
-          score: "18/20",
-          percent: 90,
-          icon: "📱",
-        },
-        {
-          type: "Dates",
-          title: "Dates & Times",
-          date: "Yesterday, 10:15 AM",
-          score: "15/20",
-          percent: 75,
-          icon: "📅",
-        },
-        {
-          type: "Prices",
-          title: "Prices",
-          date: "Oct 23, 5:30 PM",
-          score: "20/20",
-          percent: 100,
-          icon: "🏷️",
-        },
-        {
-          type: "Addresses",
-          title: "Addresses",
-          date: "Oct 22, 9:00 AM",
-          score: "16/20",
-          percent: 80,
-          icon: "📍",
-        },
-      ],
+      categoryStats: QUESTION_CATEGORIES.map((cat) => ({
+        ...cat,
+        count: Math.floor(Math.random() * 100),
+        accuracy: Math.floor(Math.random() * 30) + 70,
+      })),
     };
   },
   computed: {
     ...mapState(useUserStore, ["settings"]),
-    filteredSessions() {
-      if (this.currentTab === 0) return this.sessions;
-      const type = this.tabs[this.currentTab];
-      return this.sessions.filter((s) => s.type === type);
-    },
   },
   methods: {
     getScoreClass(percent) {
       if (percent >= 90) return "success";
       if (percent >= 70) return "warning";
       return "danger";
-    },
-    getSessionTypeClass(type) {
-      const map = {
-        Numbers: "type-blue",
-        Dates: "type-purple",
-        Prices: "type-green",
-        Addresses: "type-orange",
-      };
-      return map[type] || "type-blue";
     },
     navigateTo(url) {
       uni.navigateTo({
@@ -286,34 +242,45 @@ export default {
       justify-content: center;
       margin-right: 30rpx;
 
-      .icon-text {
-        font-size: 40rpx;
+      .icon {
+        width: 48rpx;
+        height: 48rpx;
+        background-color: currentColor;
       }
+    }
 
-      &.type-blue {
-        background-color: rgba(43, 134, 255, 0.15);
-        .icon-text {
-          color: #2b86ff;
-        }
-      }
-      &.type-purple {
-        background-color: rgba(124, 77, 255, 0.15);
-        .icon-text {
-          color: #7c4dff;
-        }
-      }
-      &.type-green {
-        background-color: rgba(0, 200, 83, 0.15);
-        .icon-text {
-          color: #00c853;
-        }
-      }
-      &.type-orange {
-        background-color: rgba(255, 152, 0, 0.15);
-        .icon-text {
-          color: #ff9800;
-        }
-      }
+    /* Icon Colors */
+    .bg-blue {
+      background-color: rgba(43, 134, 255, 0.1);
+      color: #2b86ff;
+    }
+    .bg-orange {
+      background-color: rgba(255, 107, 53, 0.1);
+      color: #ff6b35;
+    }
+    .bg-green {
+      background-color: rgba(0, 210, 106, 0.1);
+      color: #00d26a;
+    }
+    .bg-red {
+      background-color: rgba(255, 82, 82, 0.1);
+      color: #ff5252;
+    }
+    .bg-purple {
+      background-color: rgba(156, 39, 176, 0.1);
+      color: #9c27b0;
+    }
+    .bg-orange-dark {
+      background-color: rgba(255, 152, 0, 0.1);
+      color: #ff9800;
+    }
+    .bg-teal {
+      background-color: rgba(0, 150, 136, 0.1);
+      color: #009688;
+    }
+    .bg-indigo {
+      background-color: rgba(63, 81, 181, 0.1);
+      color: #3f51b5;
     }
 
     .session-info {
