@@ -37,7 +37,7 @@
       <!-- Adaptive Mix Button -->
       <view class="adaptive-btn" hover-class="btn-hover" @click="goToPreferences">
         <view class="icon--feather--zap icon-size-16 adaptive-icon"></view>
-        <text class="adaptive-text">{{ $t('home.adaptiveMix', { count: 10 }) }}</text>
+        <text class="adaptive-text">{{ adaptiveMixText }}</text>
       </view>
 
       <!-- Description -->
@@ -59,6 +59,7 @@ import { navigateTo } from "@/utils/router";
 import { mapState } from "pinia";
 import { useUserStore } from "@/stores/user";
 import themeMixin from "@/mixins/themeMixin.js";
+import i18n from "@/locale/index";
 
 export default {
   mixins: [themeMixin],
@@ -79,7 +80,10 @@ export default {
         this.userInfo && this.userInfo.nickname
           ? this.userInfo.nickname
           : "Alex";
-      return this.$t("home.greeting", { name });
+      return i18n.global.t("home.greeting", { name });
+    },
+    adaptiveMixText() {
+      return i18n.global.t("home.adaptiveMix", { count: 10 });
     },
   },
   methods: {

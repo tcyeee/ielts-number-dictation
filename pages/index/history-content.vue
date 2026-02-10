@@ -41,7 +41,7 @@
             </view>
             <view class="session-info">
               <text class="session-title">{{ $t('category.' + stat.id) }}</text>
-              <text class="session-date">{{ $t('history.total', { count: stat.count }) }}</text>
+              <text class="session-date">{{ totalText(stat.count) }}</text>
             </view>
           </view>
           <view class="session-right">
@@ -61,6 +61,7 @@ import WeeklyPerformanceChart from "@/components/chart/weekly-performance-chart.
 import { mapState } from "pinia";
 import { useUserStore } from "@/stores/user";
 import { QUESTION_CATEGORIES } from "@/utils/constants.js";
+import i18n from "@/locale/index";
 
 export default {
   components: {
@@ -81,6 +82,9 @@ export default {
     ...mapState(useUserStore, ["settings"]),
   },
   methods: {
+    totalText(count) {
+      return i18n.global.t("history.total", { count });
+    },
     getScoreClass(percent) {
       if (percent >= 90) return "success";
       if (percent >= 70) return "warning";
