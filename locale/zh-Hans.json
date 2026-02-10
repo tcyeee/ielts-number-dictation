@@ -11,7 +11,9 @@
     "confirm": "确认",
     "cancel": "取消",
     "save": "保存",
-    "loading": "加载中..."
+    "loading": "加载中...",
+    "saveChanges": "保存修改",
+    "saving": "保存中..."
   },
   "home": {
     "greeting": "加油, {name}!",
@@ -50,6 +52,31 @@
     "theme": "主题",
     "privacyPolicy": "隐私政策",
     "termsOfService": "服务条款",
-    "contactUs": "联系我们"
+    "contactUs": "联系我们",
+    "changePhoto": "更换头像",
+    "nickname": "昵称",
+    "enterNickname": "输入昵称",
+    "nicknameEmpty": "昵称不能为空",
+    "dailyGoalDesc": "设定每日目标，保持练习连贯性，提高雅思听力分数。",
+    "questions": "题",
+    "dailyGoalInfo": "大多数获得 7.0 分或更高分的学生，连续 4 周每天至少完成 30 道题。",
+    "dailyReminder": "每日提醒",
+    "dailyReminderDesc": "每天提醒您进行听写练习。",
+    "weeklyProgress": "每周进度报告",
+    "weeklyProgressDesc": "接收每周练习表现摘要。",
+    "newModules": "新练习模块",
+    "newModulesDesc": "当添加新的数字集或课程时发出提醒。",
+    "practiceSchedule": "练习计划",
+    "practiceTime": "练习时间",
+    "scheduleDesc": "选择最适合您的时间来保持练习连贯性。坚持每日练习是雅思听力成功的关键。",
+    "questionsSessionDesc": "选择每次练习要听写的题目数量。较短的练习更适合快速训练。",
+    "resetWeights": "重置题目权重",
+    "resetDesc": "系统根据您在每个类别的分数调整频率。重置将清除您的个性化学习记录并恢复默认概率。",
+    "reset": "重置",
+    "selectCategories": "选择您要练习的数字类型。默认选中所有类别。",
+    "minCategory": "注意：必须至少选择一个类别才能开始练习。",
+    "minCategoryError": "至少需要选择一个类别",
+    "resetConfirmTitle": "重置权重",
+    "resetConfirmContent": "确定要重置所有学习概率吗？"
   }
 }

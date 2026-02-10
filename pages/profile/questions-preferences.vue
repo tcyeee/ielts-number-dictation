@@ -1,20 +1,20 @@
 <template>
   <view class="container" :data-theme="pageThemeAttr">
-    <custom-header title="Question Preferences" />
+    <custom-header :title="$t('profile.questionPreferences')" />
     <scroll-view scroll-y class="content-scroll">
       <view class="content-wrapper">
         <!-- Reset Card -->
         <view class="reset-card">
           <view class="reset-header">
-            <text class="reset-title">Reset Question Weights</text>
+            <text class="reset-title">{{ $t('profile.resetWeights') }}</text>
           </view>
-          <text class="reset-desc">The system adjusts frequency based on your scores in each category. Resetting will clear your personalized learning history and restore default probabilities.</text>
+          <text class="reset-desc">{{ $t('profile.resetDesc') }}</text>
           <view class="reset-action">
-            <button class="reset-btn" @click="onReset">Reset</button>
+            <button class="reset-btn" @click="onReset">{{ $t('profile.reset') }}</button>
           </view>
         </view>
 
-        <text class="section-desc">Select the types of numbers you want to practice. All categories are selected by default.</text>
+        <text class="section-desc">{{ $t('profile.selectCategories') }}</text>
 
         <!-- Categories List -->
         <view class="card">
@@ -23,7 +23,7 @@
               <view class="icon-box" :class="cat.bgClass">
                 <view :class="['icon', cat.icon]"></view>
               </view>
-              <text class="setting-label">{{ cat.label }}</text>
+              <text class="setting-label">{{ $t('category.' + cat.id) }}</text>
             </view>
             <view class="setting-right">
               <checkbox :checked="isSelected(cat.id)" color="#2b86ff" style="transform:scale(0.9); pointer-events: none" class="custom-checkbox" />
@@ -31,7 +31,7 @@
           </view>
         </view>
 
-        <text class="note">Note: At least one category must be selected to start a practice session.</text>
+        <text class="note">{{ $t('profile.minCategory') }}</text>
       </view>
     </scroll-view>
   </view>
@@ -76,7 +76,7 @@ export default {
         // Unchecking
         if (current.length <= 1) {
           uni.showToast({
-            title: "At least one category required",
+            title: this.$t("profile.minCategoryError"),
             icon: "none",
           });
           return;
@@ -92,10 +92,11 @@ export default {
 
     onReset() {
       uni.showModal({
-        title: "Reset Weights",
-        content: "Are you sure you want to reset all learning probabilities?",
-        confirmText: "Reset",
+        title: this.$t("profile.resetConfirmTitle"),
+        content: this.$t("profile.resetConfirmContent"),
+        confirmText: this.$t("profile.reset"),
         confirmColor: "#2b86ff",
+        cancelText: this.$t("common.cancel"),
         success: (res) => {
           if (res.confirm) {
             this.resetQuestionTypes();

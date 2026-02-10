@@ -1,6 +1,6 @@
 <template>
   <view class="container" :data-theme="pageThemeAttr">
-    <custom-header title="Questions Per Session" />
+    <custom-header :title="$t('profile.questionsPerSession')" />
 
     <scroll-view scroll-y class="content-scroll">
       <view class="content-wrapper">
@@ -14,7 +14,7 @@
         </view>
 
         <text class="description-text">
-          Select how many numbers you want to transcribe in a single practice session. Shorter sessions are better for quick drills.
+          {{ $t('profile.questionsSessionDesc') }}
         </text>
       </view>
     </scroll-view>
@@ -30,20 +30,18 @@ export default {
   components: {
     CustomHeader,
   },
-  data() {
-    return {
-      options: [
-        { label: "5 Questions", value: 5 },
-        { label: "10 Questions", value: 10 },
-        { label: "20 Questions", value: 20 },
-        { label: "50 Questions", value: 50 },
-      ],
-    };
-  },
   computed: {
     ...mapState(useUserStore, ["settings"]),
     selectedOption() {
       return this.settings.questionsPerSession;
+    },
+    options() {
+      return [
+        { label: `5 ${this.$t("profile.questions")}`, value: 5 },
+        { label: `10 ${this.$t("profile.questions")}`, value: 10 },
+        { label: `20 ${this.$t("profile.questions")}`, value: 20 },
+        { label: `50 ${this.$t("profile.questions")}`, value: 50 },
+      ];
     },
   },
   methods: {

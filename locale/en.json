@@ -11,7 +11,9 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "save": "Save",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "saveChanges": "Save Changes",
+    "saving": "Saving..."
   },
   "home": {
     "greeting": "Keep it up, {name}!",
@@ -50,6 +52,31 @@
     "theme": "Theme",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "changePhoto": "CHANGE PHOTO",
+    "nickname": "NICKNAME",
+    "enterNickname": "Enter nickname",
+    "nicknameEmpty": "Nickname cannot be empty",
+    "dailyGoalDesc": "Set your daily target to stay consistent and improve your IELTS listening score.",
+    "questions": "Questions",
+    "dailyGoalInfo": "Most students who score 7.0 or higher complete at least 30 questions daily for 4 consecutive weeks.",
+    "dailyReminder": "Daily Reminder",
+    "dailyReminderDesc": "Get a nudge to practice your dictation daily.",
+    "weeklyProgress": "Weekly Progress Report",
+    "weeklyProgressDesc": "Receive a summary of your weekly performance.",
+    "newModules": "New Practice Modules",
+    "newModulesDesc": "Alerts when new number sets or lessons are added.",
+    "practiceSchedule": "PRACTICE SCHEDULE",
+    "practiceTime": "Practice Time",
+    "scheduleDesc": "Choose a time that works best for you to maintain your practice streak. Consistent daily practice is key to IELTS listening success.",
+    "questionsSessionDesc": "Select how many numbers you want to transcribe in a single practice session. Shorter sessions are better for quick drills.",
+    "resetWeights": "Reset Question Weights",
+    "resetDesc": "The system adjusts frequency based on your scores in each category. Resetting will clear your personalized learning history and restore default probabilities.",
+    "reset": "Reset",
+    "selectCategories": "Select the types of numbers you want to practice. All categories are selected by default.",
+    "minCategory": "Note: At least one category must be selected to start a practice session.",
+    "minCategoryError": "At least one category required",
+    "resetConfirmTitle": "Reset Weights",
+    "resetConfirmContent": "Are you sure you want to reset all learning probabilities?"
   }
 }

@@ -1,17 +1,17 @@
 <template>
   <view class="container" :data-theme="pageThemeAttr">
-    <custom-header title="Daily Practice Goal" />
+    <custom-header :title="$t('profile.dailyGoal')" />
 
     <scroll-view scroll-y class="content-scroll">
       <view class="content-wrapper">
         <text class="page-description">
-          Set your daily target to stay consistent and improve your IELTS listening score.
+          {{ $t('profile.dailyGoalDesc') }}
         </text>
 
         <!-- Goal Options -->
         <view class="card">
           <view v-for="(option, index) in goalOptions" :key="option" class="goal-item" @click="selectGoal(option)">
-            <text class="goal-text">{{ option }} Questions</text>
+            <text class="goal-text">{{ option }} {{ $t('profile.questions') }}</text>
             <view v-if="dailyGoal === option" class="check-icon">
               <text class="check-mark">✓</text>
             </view>
@@ -25,7 +25,7 @@
             <view class="info-icon">i</view>
           </view>
           <text class="info-text">
-            Most students who score 7.0 or higher complete at least <text class="highlight">30 questions</text> daily for 4 consecutive weeks.
+            {{ $t('profile.dailyGoalInfo') }}
           </text>
         </view>
 

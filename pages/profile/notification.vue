@@ -1,14 +1,14 @@
 <template>
   <view class="container" :data-theme="pageThemeAttr">
-    <custom-header title="Notification Settings" />
+    <custom-header :title="$t('profile.notifications')" />
     <scroll-view scroll-y class="content-scroll">
       <view class="content-wrapper">
         <!-- Notification Toggles Card -->
         <view class="card">
           <view class="setting-item">
             <view class="setting-info">
-              <text class="setting-title">Daily Reminder</text>
-              <text class="setting-desc">Get a nudge to practice your dictation daily.</text>
+              <text class="setting-title">{{ $t('profile.dailyReminder') }}</text>
+              <text class="setting-desc">{{ $t('profile.dailyReminderDesc') }}</text>
             </view>
             <switch :checked="dailyReminder" @change="onToggleChange('dailyReminder', $event)" color="#2b86ff" style="transform:scale(0.8)" />
           </view>
@@ -17,8 +17,8 @@
 
           <view class="setting-item">
             <view class="setting-info">
-              <text class="setting-title">Weekly Progress Report</text>
-              <text class="setting-desc">Receive a summary of your weekly performance.</text>
+              <text class="setting-title">{{ $t('profile.weeklyProgress') }}</text>
+              <text class="setting-desc">{{ $t('profile.weeklyProgressDesc') }}</text>
             </view>
             <switch :checked="weeklyProgress" @change="onToggleChange('weeklyProgress', $event)" color="#2b86ff" style="transform:scale(0.8)" />
           </view>
@@ -27,8 +27,8 @@
 
           <view class="setting-item">
             <view class="setting-info">
-              <text class="setting-title">New Practice Modules</text>
-              <text class="setting-desc">Alerts when new number sets or lessons are added.</text>
+              <text class="setting-title">{{ $t('profile.newModules') }}</text>
+              <text class="setting-desc">{{ $t('profile.newModulesDesc') }}</text>
             </view>
             <switch :checked="newModules" @change="onToggleChange('newModules', $event)" color="#2b86ff" style="transform:scale(0.8)" />
           </view>
@@ -36,7 +36,7 @@
 
         <!-- Practice Schedule Section -->
         <view class="section-header">
-          <text class="section-title">PRACTICE SCHEDULE</text>
+          <text class="section-title">{{ $t('profile.practiceSchedule') }}</text>
         </view>
 
         <view class="card">
@@ -49,7 +49,7 @@
                     <view class="clock-hand minute"></view>
                   </view>
                 </view>
-                <text class="schedule-label">Practice Time</text>
+                <text class="schedule-label">{{ $t('profile.practiceTime') }}</text>
               </view>
 
               <view class="right-content">
@@ -63,7 +63,7 @@
         </view>
 
         <text class="description-text">
-          Choose a time that works best for you to maintain your practice streak. Consistent daily practice is key to IELTS listening success.
+          {{ $t('profile.scheduleDesc') }}
         </text>
 
       </view>

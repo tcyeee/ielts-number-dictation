@@ -1,6 +1,6 @@
 <template>
   <view class="container" :data-theme="pageThemeAttr">
-    <custom-header title="Edit Profile" />
+    <custom-header :title="$t('profile.editProfile')" />
     <view class="content">
       <view class="avatar-wrapper">
         <button class="avatar-btn" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
@@ -12,21 +12,21 @@
                   <view class="camera-lens"></view>
                 </view>
               </view>
-              <text class="change-text">CHANGE PHOTO</text>
+              <text class="change-text">{{ $t('profile.changePhoto') }}</text>
             </view>
           </view>
         </button>
       </view>
 
       <view class="form-group">
-        <text class="label">NICKNAME</text>
+        <text class="label">{{ $t('profile.nickname') }}</text>
         <view class="input-container">
-          <input class="input" type="nickname" v-model="nickname" @blur="onNicknameBlur" placeholder="Enter nickname" placeholder-class="input-placeholder" />
+          <input class="input" type="nickname" v-model="nickname" @blur="onNicknameBlur" :placeholder="$t('profile.enterNickname')" placeholder-class="input-placeholder" />
         </view>
       </view>
 
       <view class="footer">
-        <button class="save-btn" @click="saveChanges" :loading="loading">Save Changes</button>
+        <button class="save-btn" @click="saveChanges" :loading="loading">{{ $t('common.saveChanges') }}</button>
       </view>
     </view>
   </view>
@@ -85,13 +85,13 @@ export default defineComponent({
     async saveChanges() {
       if (!this.nickname.trim()) {
         uni.showToast({
-          title: "Nickname cannot be empty",
+          title: this.$t("profile.nicknameEmpty"),
           icon: "none",
         });
         return;
       }
 
-      uni.showLoading({ title: "Saving..." });
+      uni.showLoading({ title: this.$t("common.saving") });
 
       try {
         let avatarBase64 = undefined;
