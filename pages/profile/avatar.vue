@@ -64,7 +64,7 @@ export default defineComponent({
 
     initData() {
       // Initialize with store data
-      this.nickname = this.userInfo.name || "";
+      this.nickname = this.userInfo.nickname || "";
       this.avatarUrl =
         this.userInfo.avatar || "https://via.placeholder.com/150";
     },
