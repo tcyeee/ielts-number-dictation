@@ -4,13 +4,13 @@
 
     <!-- Header -->
     <view class="header">
-      <text class="page-title">Training History</text>
+      <text class="page-title">{{ $t('history.title') }}</text>
     </view>
 
     <!-- Stats Cards -->
     <view class="stats-row">
       <view class="card stat-card">
-        <text class="stat-label">Average Accuracy</text>
+        <text class="stat-label">{{ $t('history.avgAccuracy') }}</text>
         <text class="stat-value">88%</text>
         <view class="stat-change success">
           <text class="icon">↗</text>
@@ -18,9 +18,9 @@
         </view>
       </view>
       <view class="card stat-card">
-        <text class="stat-label">Total Sessions</text>
+        <text class="stat-label">{{ $t('history.totalSessions') }}</text>
         <text class="stat-value">124</text>
-        <text class="stat-sub">This month</text>
+        <text class="stat-sub">{{ $t('history.thisMonth') }}</text>
       </view>
     </view>
 
@@ -30,7 +30,7 @@
     <!-- Category Statistics -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title-small">Practice Statistics</text>
+        <text class="section-title-small">{{ $t('history.practiceStats') }}</text>
       </view>
 
       <view class="session-list">
@@ -40,13 +40,13 @@
               <view :class="['icon', stat.icon]"></view>
             </view>
             <view class="session-info">
-              <text class="session-title">{{ stat.label }}</text>
-              <text class="session-date">Total: {{ stat.count }}</text>
+              <text class="session-title">{{ $t('category.' + stat.id) }}</text>
+              <text class="session-date">{{ $t('history.total', { count: stat.count }) }}</text>
             </view>
           </view>
           <view class="session-right">
             <text class="session-score">{{ stat.accuracy }}%</text>
-            <text class="session-percent" :class="getScoreClass(stat.accuracy)">Accuracy</text>
+            <text class="session-percent" :class="getScoreClass(stat.accuracy)">{{ $t('history.accuracy') }}</text>
           </view>
         </view>
       </view>

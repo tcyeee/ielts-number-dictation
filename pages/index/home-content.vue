@@ -6,8 +6,8 @@
       <view class="user-info">
         <image class="avatar" src="/static/logo.png" mode="aspectFill"></image>
         <view class="user-text">
-          <text class="app-name">IELTS Dictation</text>
-          <text class="greeting">Keep it up, Alex!</text>
+          <text class="app-name">{{ $t('app.name') }}</text>
+          <text class="greeting">{{ $t('home.greeting', { name: userInfo.name || 'Alex' }) }}</text>
         </view>
       </view>
     </view>
@@ -17,13 +17,13 @@
       <!-- Accuracy Card -->
       <view class="progress-card">
         <circular-progress :percentage="85" color="#2b86ff" label="85%" :size="140" />
-        <text class="card-label">ACCURACY</text>
+        <text class="card-label">{{ $t('home.accuracy') }}</text>
       </view>
 
       <!-- Daily Goal Card -->
       <view class="progress-card">
         <circular-progress :percentage="60" color="#9d65ff" label="12/20" :size="140" />
-        <text class="card-label">DAILY GOAL</text>
+        <text class="card-label">{{ $t('home.dailyGoal') }}</text>
       </view>
     </view>
 
@@ -31,19 +31,18 @@
     <view class="action-section">
       <!-- Start Button -->
       <view class="start-btn" hover-class="btn-hover" @click="startPractice">
-        <text class="start-text"> ▶ START</text>
+        <text class="start-text"> ▶ {{ $t('home.start') }}</text>
       </view>
 
       <!-- Adaptive Mix Button -->
       <view class="adaptive-btn" hover-class="btn-hover" @click="goToPreferences">
         <view class="icon--feather--zap icon-size-16 adaptive-icon"></view>
-        <text class="adaptive-text">ADAPTIVE MIX: 10 QUESTIONS</text>
+        <text class="adaptive-text">{{ $t('home.adaptiveMix', { count: 10 }) }}</text>
       </view>
 
       <!-- Description -->
       <text class="description-text">
-        Automatically balanced categories based
-        on your recent performance.
+        {{ $t('home.adaptiveDesc') }}
       </text>
     </view>
   </view>
@@ -74,7 +73,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useUserStore, ["settings"]),
+    ...mapState(useUserStore, ["settings", "userInfo"]),
   },
   methods: {
     toSettings() {

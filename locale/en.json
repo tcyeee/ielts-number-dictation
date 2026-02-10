@@ -13,6 +13,33 @@
     "save": "Save",
     "loading": "Loading..."
   },
+  "home": {
+    "greeting": "Keep it up, {name}!",
+    "accuracy": "ACCURACY",
+    "dailyGoal": "DAILY GOAL",
+    "start": "START",
+    "adaptiveMix": "ADAPTIVE MIX: {count} QUESTIONS",
+    "adaptiveDesc": "Automatically balanced categories based on your recent performance."
+  },
+  "history": {
+    "title": "Training History",
+    "avgAccuracy": "Average Accuracy",
+    "totalSessions": "Total Sessions",
+    "thisMonth": "This month",
+    "practiceStats": "Practice Statistics",
+    "total": "Total: {count}",
+    "accuracy": "Accuracy"
+  },
+  "category": {
+    "Date": "Date",
+    "Time": "Time",
+    "Phone": "Phone",
+    "Price": "Price",
+    "Measurement": "Measurement",
+    "Address": "Address",
+    "Quantity": "Quantity",
+    "Percentage": "Percentage"
+  },
   "profile": {
     "editProfile": "Edit Profile",
     "notifications": "Notifications",

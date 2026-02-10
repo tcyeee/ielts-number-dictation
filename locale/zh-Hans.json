@@ -13,6 +13,33 @@
     "save": "保存",
     "loading": "加载中..."
   },
+  "home": {
+    "greeting": "加油, {name}!",
+    "accuracy": "准确率",
+    "dailyGoal": "每日目标",
+    "start": "开始",
+    "adaptiveMix": "自适应混合: {count} 题",
+    "adaptiveDesc": "根据您最近的表现自动平衡题目类型。"
+  },
+  "history": {
+    "title": "训练历史",
+    "avgAccuracy": "平均准确率",
+    "totalSessions": "总练习数",
+    "thisMonth": "本月",
+    "practiceStats": "练习统计",
+    "total": "总计: {count}",
+    "accuracy": "准确率"
+  },
+  "category": {
+    "Date": "日期",
+    "Time": "时间",
+    "Phone": "电话",
+    "Price": "价格",
+    "Measurement": "计量",
+    "Address": "地址",
+    "Quantity": "数量",
+    "Percentage": "百分比"
+  },
   "profile": {
     "editProfile": "编辑资料",
     "notifications": "通知设置",
