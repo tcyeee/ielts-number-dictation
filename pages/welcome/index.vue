@@ -6,9 +6,7 @@
     <view class="content">
       <!-- Logo Section -->
       <view class="logo-section">
-        <view class="logo-wrapper">
-          <image class="logo" src="/static/logo.png" mode="aspectFit" />
-        </view>
+        <image class="logo" src="/static/logo.png" mode="aspectFit" />
       </view>
 
       <!-- Title Section -->
@@ -109,20 +107,11 @@ export default {
 .logo-section {
   margin-bottom: 60rpx;
 
-  .logo-wrapper {
+  .logo {
     width: 180rpx;
     height: 180rpx;
-    border-radius: 40rpx;
-    background: linear-gradient(135deg, #4c6ef5 0%, #5f3dc4 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 20rpx 40rpx rgba(95, 61, 196, 0.3);
-
-    .logo {
-      width: 100rpx;
-      height: 100rpx;
-    }
+    border-radius: 44rpx;
+    box-shadow: 0 rgba(95, 61, 196, 0.3);
   }
 }
 
