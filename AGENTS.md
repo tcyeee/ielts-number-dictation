@@ -5,7 +5,7 @@
 ## 项目概览
 
 **项目**: IELTS Number Dictation Training App（雅思数字听写训练小程序）
-**技术栈**: uni-app (Vue 3) + Pinia + SCSS + 微信小程序
+**技术栈**: uni-app (Vue 3) + Pinia + SCSS + vue-i18n + 微信小程序
 **当前版本**: 1.0.0
 **主要特性**: 数字听写练习、进度跟踪、主题切换
 
@@ -23,6 +23,7 @@
 pages/           - 页面文件（按功能模块组织）
   index/         - 主页模块（tabbar 页面）
   profile/       - 设置相关子页面
+locale/          - 国际化语言包
 components/      - 可复用组件
 stores/          - Pinia 状态管理
 utils/           - 工具函数
@@ -187,6 +188,48 @@ const API_BASE_URL = "https://api.example.com";
 Store: camelCase
   user.ts
   settings.ts
+```
+
+## 国际化开发指南
+
+> 项目已全面支持中英文切换，新增文本必须添加国际化支持。
+
+### 1. 添加新文本
+
+在 `locale/en.json` 和 `locale/zh-Hans.json` 中同时添加对应的键值对。保持结构清晰，建议按页面或模块分组。
+
+```json
+// locale/en.json
+{
+  "profile": {
+    "settings": "Settings"
+  }
+}
+```
+
+### 2. 在组件中使用
+
+**Template 中**：
+```vue
+<text>{{ $t('profile.settings') }}</text>
+<custom-header :title="$t('profile.settings')" />
+```
+
+**Script 中**：
+```javascript
+uni.showToast({
+  title: this.$t('common.success'),
+  icon: 'success'
+});
+```
+
+**Computed 属性** (推荐用于复杂逻辑)：
+```javascript
+computed: {
+  headerTitle() {
+    return this.$t('profile.settings');
+  }
+}
 ```
 
 ## 主题系统开发指南

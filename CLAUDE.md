@@ -9,6 +9,7 @@
 - **框架**: uni-app (Vue 3)
 - **状态管理**: Pinia
 - **样式**: SCSS + CSS Variables
+- **国际化**: vue-i18n
 - **平台**: 微信小程序（mp-weixin）
 - **主题**: 支持浅色/暗色主题动态切换
 
@@ -30,6 +31,10 @@ ielts-number-dictaion/
 │       ├── privacy.vue        # 隐私政策
 │       ├── questions-per-session.vue # 题目数量
 │       └── terms.vue          # 服务条款
+├── locale/                    # 国际化语言包
+│   ├── en.json               # 英文
+│   ├── zh-Hans.json          # 简体中文
+│   └── index.ts              # i18n 配置
 ├── components/                # 组件
 │   ├── nav/                   # 导航组件
 │   ├── safe-area/            # 安全区域组件
@@ -66,6 +71,23 @@ ielts-number-dictaion/
 - **语言设置**：EN/CN
 - **题目数量**：5/10/20/50题
 - **通知设置**：每日提醒、周报等
+
+## 国际化系统实现
+
+### 技术方案
+
+项目采用 `vue-i18n` (v9) 实现多语言支持：
+
+1. **语言包管理**：所有语言文件存放在 `locale/` 目录下（`en.json`, `zh-Hans.json`）。
+2. **持久化**：用户语言偏好存储在本地缓存 `language` 中，并通过 `UserStore` 管理。
+3. **初始化**：App 启动时优先读取本地缓存，无缓存则默认为简体中文 (`zh-Hans`)。
+4. **动态切换**：通过 `UserStore.setLanguage()` 动作更新 state 并同步修改 `i18n.global.locale`。
+
+### 使用方式
+
+- **Template**: `{{ $t('home.greeting') }}`
+- **Script**: `this.$t('common.save')`
+- **Keys**: 使用嵌套结构，如 `page.section.key` (e.g., `profile.dailyGoal`)。
 
 ## 主题系统实现
 
