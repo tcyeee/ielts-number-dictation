@@ -23,11 +23,11 @@ import { Difficulty, InputCategory, TrainingCategory } from "./enums";
 ====================================================== */
 
 /**
- * 核心实体：ListeningNumberQuestion
+ * 核心实体：QuestionEntity
  *
  * 表示一道雅思听力数字题
  */
-export interface ListeningNumberQuestion {
+export interface QuestionEntity {
     /** UUID 数据库生成 */
     id: string
     /** 难度等级 */
