@@ -1,18 +1,10 @@
 <template>
   <view class="container" :data-theme="pageThemeAttr">
     <CustomNavbar title="Number Dictation" />
-    <SafeAreaTop />
+    <SafeAreaTop size="m" />
     <view class="content">
       <!-- Progress Section -->
-      <view class="progress-section">
-        <view class="progress-header">
-          <view class="tag">PRICES & CURRENCIES</view>
-          <text class="counter">Question <text class="highlight">{{ currentQuestion }}</text> of {{ totalQuestions }}</text>
-        </view>
-        <view class="progress-bar-bg">
-          <view class="progress-bar-fill" :style="{ width: progressPercentage + '%' }"></view>
-        </view>
-      </view>
+      <ProgressCard :current="currentQuestion" :total="totalQuestions" tag="PRICES & CURRENCIES" />
 
       <!-- Player Card -->
       <view class="player-card">
@@ -58,7 +50,7 @@
       <view class="input-section">
         <text class="input-label">Enter the number you hear</text>
         <view class="input-box">
-          <input type="digit" class="number-input" placeholder="0.00" placeholder-class="placeholder-style" v-model="answer" :focus="true" />
+          <input type="digit" class="number-input" placeholder="0.00" placeholder-class="placeholder-style" v-model="answer" :focus="false" />
         </view>
       </view>
 
@@ -74,12 +66,14 @@
 <script>
 import CustomNavbar from "@/components/nav/custom-header.vue";
 import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
+import ProgressCard from "@/components/dictation/progress-card.vue";
 import { getQuestions } from "@/service/api";
 
 export default {
   components: {
     CustomNavbar,
     SafeAreaTop,
+    ProgressCard,
   },
   data() {
     return {
@@ -93,9 +87,6 @@ export default {
     };
   },
   computed: {
-    progressPercentage() {
-      return (this.currentQuestion / this.totalQuestions) * 100;
-    },
     currentProgress() {
       return this.currentTime;
     },
@@ -175,50 +166,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-/* Progress Section */
-.progress-section {
-  .progress-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .tag {
-    background-color: rgba(43, 134, 255, 0.2);
-    color: var(--accent-blue);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 12px;
-    letter-spacing: 0.5px;
-  }
-
-  .counter {
-    font-size: 14px;
-    color: var(--text-sub);
-
-    .highlight {
-      color: var(--text-main);
-      font-weight: bold;
-    }
-  }
-
-  .progress-bar-bg {
-    height: 6px;
-    background-color: #2c2c2e;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background-color: var(--accent-blue);
-    border-radius: 3px;
-    transition: width 0.3s ease;
-  }
 }
 
 /* Player Card */
