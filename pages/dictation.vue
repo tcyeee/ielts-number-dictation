@@ -74,6 +74,7 @@
 <script>
 import CustomNavbar from "@/components/nav/custom-header.vue";
 import SafeAreaTop from "@/components/safe-area/safe-area-top.vue";
+import { getQuestions } from "@/service/api";
 
 export default {
   components: {
@@ -99,7 +100,11 @@ export default {
       return this.currentTime;
     },
   },
-  onLoad() {},
+  onLoad() {
+    getQuestions().then((res) => {
+      console.log(res);
+    });
+  },
   methods: {
     goBack() {
       uni.navigateBack();
