@@ -4,13 +4,13 @@
     <SafeAreaTop size="m" />
     <view class="content">
       <!-- Progress Section -->
-      <ProgressCard :current="currentQuestion" :total="totalQuestions" tag="PRICES & CURRENCIES" />
+      <ProgressCard :current="currentQuestionNumber" :total="totalQuestions" :tag="categoryTag" />
 
       <!-- Player Card -->
-      <PlayerCard :currentQuestion="currentQuestion" :currentTime="currentTime" :duration="duration" :isPlaying="isPlaying" :playbackRate="playbackRate" @rewind="rewind" @togglePlay="togglePlay" @changeSpeed="changeSpeed" @sliderChange="onSliderChange" />
+      <PlayerCard :currentQuestion="currentQuestionNumber" :category="categoryTag" :currentTime="currentTime" :duration="duration" :isPlaying="isPlaying" :playbackRate="playbackRate" @rewind="rewind" @togglePlay="togglePlay" @changeSpeed="changeSpeed" @sliderChange="onSliderChange" />
 
       <!-- Input Section -->
-      <InputCard v-model="answer" />
+      <InputCard v-model="answer" :label="inputLabel" />
 
       <!-- Actions -->
       <view class="actions">
@@ -39,43 +39,166 @@ export default {
   },
   data() {
     return {
-      currentQuestion: 3,
-      totalQuestions: 10,
-      currentTime: 2,
-      duration: 5,
+      questions: [],
+      currentIndex: 0,
+      currentTime: 0,
+      duration: 0,
       isPlaying: false,
       playbackRate: 1.0,
       answer: "",
+      isLoading: true,
+      audioContext: null,
     };
   },
+  computed: {
+    currentQuestionData() {
+      return this.questions[this.currentIndex] || {};
+    },
+    totalQuestions() {
+      return this.questions.length;
+    },
+    currentQuestionNumber() {
+      return this.currentIndex + 1;
+    },
+    categoryTag() {
+      return this.currentQuestionData.trainingCategory || "Loading...";
+    },
+    inputLabel() {
+      return (
+        this.currentQuestionData.question?.prompt ||
+        "Listen and type the number"
+      );
+    },
+  },
   onLoad() {
-    getQuestions().then((res) => {
-      console.log(res);
-    });
+    this.initAudioContext();
+    this.loadQuestions();
+  },
+  onUnload() {
+    if (this.audioContext) {
+      this.audioContext.destroy();
+    }
   },
   methods: {
+    initAudioContext() {
+      this.audioContext = uni.createInnerAudioContext();
+      this.audioContext.onPlay(() => {
+        this.isPlaying = true;
+      });
+      this.audioContext.onPause(() => {
+        this.isPlaying = false;
+      });
+      this.audioContext.onStop(() => {
+        this.isPlaying = false;
+        this.currentTime = 0;
+      });
+      this.audioContext.onEnded(() => {
+        this.isPlaying = false;
+        this.currentTime = 0;
+      });
+      this.audioContext.onTimeUpdate(() => {
+        this.currentTime = this.audioContext.currentTime;
+        this.duration = this.audioContext.duration;
+      });
+      this.audioContext.onError((res) => {
+        console.error("Audio Error:", res);
+        uni.showToast({ title: "Audio Error", icon: "none" });
+      });
+    },
+    loadQuestions() {
+      this.isLoading = true;
+      getQuestions()
+        .then((res) => {
+          if (res.questions && res.questions.length > 0) {
+            this.questions = res.questions;
+            this.setAudioSource();
+          } else {
+            uni.showToast({ title: "No questions found", icon: "none" });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          uni.showToast({ title: "Failed to load", icon: "none" });
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    setAudioSource() {
+      if (!this.audioContext || !this.currentQuestionData.audio) return;
+
+      const audioUrl = this.currentQuestionData.audio.audioUrl;
+      if (audioUrl) {
+        this.audioContext.src = audioUrl;
+        this.currentTime = 0;
+        this.duration = 0;
+        this.isPlaying = false;
+        // Set playback rate if previously changed
+        if (
+          this.audioContext.playbackRate !== undefined &&
+          this.playbackRate !== 1.0
+        ) {
+          this.audioContext.playbackRate = this.playbackRate;
+        }
+      } else {
+        console.warn(
+          "No audio URL found for question",
+          this.currentQuestionData.id
+        );
+      }
+    },
     goBack() {
       uni.navigateBack();
     },
     togglePlay() {
-      this.isPlaying = !this.isPlaying;
+      if (!this.audioContext) return;
+      if (this.isPlaying) {
+        this.audioContext.pause();
+      } else {
+        this.audioContext.play();
+      }
     },
     rewind() {
-      this.currentTime = Math.max(0, this.currentTime - 5);
+      if (!this.audioContext) return;
+      const newTime = Math.max(0, this.currentTime - 5);
+      this.audioContext.seek(newTime);
     },
     changeSpeed() {
       const speeds = [1.0, 1.25, 1.5, 0.75];
       const idx = speeds.indexOf(this.playbackRate);
       this.playbackRate = speeds[(idx + 1) % speeds.length];
+      if (this.audioContext) {
+        this.audioContext.playbackRate = this.playbackRate;
+      }
     },
     onSliderChange(val) {
       this.currentTime = val;
+      if (this.audioContext) {
+        this.audioContext.seek(val);
+      }
     },
     submitAnswer() {
-      console.log("Answer:", this.answer);
+      if (!this.answer) return;
+      console.log(
+        "Submitted:",
+        this.answer,
+        "Expected:",
+        this.currentQuestionData.answer.value
+      );
+      this.nextQuestion();
     },
     notSure() {
-      console.log("Not sure");
+      console.log("Skipped");
+      this.nextQuestion();
+    },
+    nextQuestion() {
+      if (this.currentIndex < this.questions.length - 1) {
+        this.currentIndex++;
+        this.answer = "";
+        this.setAudioSource();
+      } else {
+        uni.showToast({ title: "Session Complete!", icon: "success" });
+      }
     },
   },
 };

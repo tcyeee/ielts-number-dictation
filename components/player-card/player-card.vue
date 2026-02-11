@@ -6,7 +6,7 @@
       </view>
       <view class="track-info">
         <text class="track-title">Listening Item #{{ currentQuestion.toString().padStart(2, '0') }}</text>
-        <text class="track-subtitle">Focus: Decimal numbers</text>
+        <text class="track-subtitle">Focus: {{ category }}</text>
       </view>
     </view>
 
@@ -46,6 +46,10 @@ export default {
     currentQuestion: {
       type: Number,
       default: 1,
+    },
+    category: {
+      type: String,
+      default: "General",
     },
     currentTime: {
       type: Number,
