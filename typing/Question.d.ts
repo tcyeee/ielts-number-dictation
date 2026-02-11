@@ -16,6 +16,7 @@
  * 建议：该实体可用于前端渲染 + 后端存储（推荐配合 Zod / class-validator）
  */
 
+import { Difficulty, InputCategory, TrainingCategory } from "./enums";
 
 /* ======================================================
    Main Entity
@@ -48,7 +49,7 @@ export interface ListeningNumberQuestion {
 }
 
 // Re-export enums for convenience if needed, but users should import from ./enums
-export { Difficulty, InputCategory, QuestionType };
+export { Difficulty, InputCategory, TrainingCategory };
 
 /* ======================================================
 Sub Models

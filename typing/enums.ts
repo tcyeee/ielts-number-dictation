@@ -16,13 +16,12 @@ export enum InputCategory {
     MIXED = "mixed"
 }
 
-export enum QuestionType {
-    DATE = "date",
-    TIME = "time",
-    PHONE = "phone",
-    PRICE = "price",
+export enum TrainingCategory {
+    DATE_TIME = "date_time",
+    CONTACT = "contact",
+    MONEY = "money",
+    NUMBER = "number",
+    PERCENTAGE = "percentage",
     MEASUREMENT = "measurement",
-    ADDRESS = "address",
-    QUANTITY = "quantity",
-    PERCENTAGE = "percentage"
+    ADDRESS = "address"
 }
