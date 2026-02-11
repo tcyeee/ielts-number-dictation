@@ -1,11 +1,13 @@
 <template>
   <view class="progress-section">
-    <view class="progress-header">
-      <view class="tag">{{ tag }}</view>
-      <text class="counter">Question <text class="highlight">{{ current }}</text> of {{ total }}</text>
+    <!-- Progress Bars -->
+    <view class="progress-bars">
+      <view v-for="i in total" :key="i" class="bar-segment" :class="{ active: i <= current }"></view>
     </view>
-    <view class="progress-bar-bg">
-      <view class="progress-bar-fill" :style="{ width: progressPercentage + '%' }"></view>
+
+    <!-- Question Counter -->
+    <view class="progress-info">
+      <text class="counter">QUESTION {{ current }} OF {{ total }}</text>
     </view>
   </view>
 </template>
@@ -16,68 +18,61 @@ export default {
   props: {
     current: {
       type: Number,
-      required: true
+      required: true,
     },
     total: {
       type: Number,
-      required: true
+      required: true,
     },
     tag: {
       type: String,
-      default: "PRICES & CURRENCIES"
-    }
+      default: "",
+    },
   },
-  computed: {
-    progressPercentage() {
-      if (this.total === 0) return 0;
-      return (this.current / this.total) * 100;
-    }
-  }
 };
 </script>
 
 <style lang="scss" scoped>
-/* Progress Section */
 .progress-section {
-  .progress-header {
+  padding: 10px 0;
+
+  .progress-bars {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    gap: 6px;
     margin-bottom: 12px;
-  }
 
-  .tag {
-    background-color: rgba(43, 134, 255, 0.2);
-    color: var(--accent-blue);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 12px;
-    letter-spacing: 0.5px;
-  }
+    .bar-segment {
+      flex: 1;
+      height: 6px;
+      background-color: var(--text-sub);
+      opacity: 0.2;
+      border-radius: 4px;
+      transition: all 0.3s ease;
 
-  .counter {
-    font-size: 14px;
-    color: var(--text-sub);
-
-    .highlight {
-      color: var(--text-main);
-      font-weight: bold;
+      &.active {
+        background-color: var(--accent-blue);
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(43, 134, 255, 0.4);
+      }
     }
   }
 
-  .progress-bar-bg {
-    height: 6px;
-    background-color: #2c2c2e;
-    border-radius: 3px;
-    overflow: hidden;
-  }
+  .progress-info {
+    text-align: center;
 
-  .progress-bar-fill {
-    height: 100%;
-    background-color: var(--accent-blue);
-    border-radius: 3px;
-    transition: width 0.3s ease;
+    .counter {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-sub);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
   }
+}
+
+/* Dark mode adjustments if needed, though using vars handles most */
+:host {
+  display: block;
 }
 </style>
